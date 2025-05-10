@@ -7,37 +7,58 @@
   --white: #ffffff;
   --orange: #f46a37;
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+}
 
 body {
   font-family: "Poppins", sans-serif;
   background-color: var(--white);
 }
 
-main {
+.main-index {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 80%;
+  margin: 10% auto;
+}
+
+.left,
+.right {
   display: flex;
-  flex-direction: column;
+  justify-content: center; /* horizontal centering */
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  height: 100%;
 }
+
 main img {
-  margin-top: 5%;
-  margin-bottom: 3%;
-  width: 20%;
+  width: 70%;
 }
-h1 {
-  font-weight: 500;
+
+.right {
+  flex-direction: column; /* stack the text vertically */
 }
-.main-title {
-  color: var(--green);
-  font-weight: 700;
-}
+
 main p {
   width: 50%;
   text-align: center;
   margin-bottom: 5%;
 }
-.navbar-brand {
+
+.site-footer {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  background-color: var(--dark-gray);
+  color: var(--white);
   font-size: 0.8rem;
-  color: var(--dark-gray);
+  position: absolute;
+  bottom: 0;
 }
