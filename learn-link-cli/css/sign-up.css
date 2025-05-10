@@ -7,10 +7,9 @@
   --white: #ffffff;
   --orange: #f46a37;
 }
-
-.main-sign-in {
+.main-sign-up {
   padding: 5%;
-  width: 30%;
+  width: 40%;
   margin: 0 auto;
 }
 h1 {
