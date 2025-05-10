@@ -10,8 +10,21 @@
 
 .main-sign-in {
   padding: 5%;
+  width: 30%;
+  margin: 0 auto;
 }
 h1 {
   font-weight: 700;
   margin-bottom: 5%;
+}
+.site-footer {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 0;
+}
+.site-footer span {
+  color: var(--blue);
 }
