@@ -17,6 +17,14 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/dashboard.css" />
+    <style>
+      .content-section {
+        display: none;
+      }
+      .content-section.active {
+        display: block;
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar bg-body-tertiary fixed-top border-bottom">
@@ -58,62 +66,66 @@
           <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  onclick="showContent('home')"
+                  >Home</a
+                >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
+                <a class="nav-link" href="#" onclick="showContent('about')"
+                  >About</a
                 >
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </li>
-                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="showContent('services')"
+                  >Services</a
+                >
               </li>
             </ul>
-            <form class="d-flex mt-3" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search skills"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
           </div>
         </div>
       </div>
     </nav>
+
     <main class="main-dashboard">
       <div class="row">
-        <div class="col col-lg-2 left-menu border-end">3 of 3</div>
-        <div class="col">1 of 3</div>
+        <div class="col col-lg-2 left-menu border-end">
+          <h1>Dashboard</h1>
+          <ul>
+            <li><a href="#" onclick="showContent('home')">Messages</a></li>
+            <li><a href="#" onclick="showContent('about')">Skills</a></li>
+            <li><a href="#" onclick="showContent('services')">Swaps</a></li>
+          </ul>
+        </div>
+        <div class="col">
+          <div id="home" class="content-section active">
+            <h2>Messages Section</h2>
+            <p>This is the home section content.</p>
+          </div>
+          <div id="about" class="content-section">
+            <h2>Skills Section</h2>
+            <p>This is the about section content.</p>
+          </div>
+          <div id="services" class="content-section">
+            <h2>Swaps Section</h2>
+            <p>This is the services section content.</p>
+          </div>
+        </div>
       </div>
     </main>
+
     <footer class="site-footer">
       <p>&reg; LearnLink 2025 – Part of <span>La Fosse</span> final project</p>
     </footer>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
       crossorigin="anonymous"
     ></script>
-    <script src=""></script>
+    <script src="js/dashboard.js"></script>
   </body>
 </html>
