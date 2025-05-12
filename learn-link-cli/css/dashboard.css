@@ -15,6 +15,9 @@
   background-color: var(--light-blue);
   height: 100vh;
 }
+.left-menu h1 {
+  font-size: 1.1rem;
+}
 .site-footer {
   width: 100%;
   text-align: center;
