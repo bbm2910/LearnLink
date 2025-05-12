@@ -1,0 +1,44 @@
+:root {
+  --blue: #1865f2;
+  --green: #14bf96;
+  --light-blue: #ecf2fd;
+  --light-gray: #f5f5f5;
+  --dark-gray: #21242c;
+  --white: #ffffff;
+  --orange: #f46a37;
+}
+.main-dashboard {
+  padding-top: 92px;
+}
+.main-dashboard li {
+  list-style: none;
+}
+.main-dashboard li a {
+  text-decoration: none;
+  color: var(--dark-gray);
+  font-size: 0.9rem;
+  transition-duration: 0.2s;
+}
+.main-dashboard li a:hover {
+  color: var(--orange);
+}
+.left-menu {
+  background-color: var(--light-blue);
+  height: 100vh;
+}
+
+.content-section h2 {
+  text-align: center;
+  margin: 2% auto;
+}
+.site-footer {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 0;
+}
+.site-footer span {
+  color: var(--blue);
+}
