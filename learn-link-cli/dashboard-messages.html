@@ -17,7 +17,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/dashboard-messages.css" />
-
   </head>
   <body>
     <nav class="navbar bg-body-tertiary fixed-top border-bottom">
@@ -46,9 +45,7 @@
           aria-labelledby="offcanvasNavbarLabel"
         >
           <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-              Profile Menu
-            </h5>
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Main Menu</h5>
             <button
               type="button"
               class="btn-close"
@@ -64,7 +61,7 @@
                   aria-current="page"
                   href="dashboard-skills.html"
                   onclick="showContent('home')"
-                  >Dashboard</a
+                  >Main Dashboard</a
                 >
               </li>
               <li class="nav-item">
@@ -73,8 +70,11 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" onclick="showContent('services')"
-                  >Skills offered</a
+                <a
+                  class="nav-link"
+                  href="dashboard-messages.html"
+                  onclick="showContent('services')"
+                  >Messages</a
                 >
               </li>
             </ul>
@@ -84,22 +84,7 @@
     </nav>
 
     <main class="main-dashboard">
-      <div class="row">
-        <div class="col col-lg-2 left-menu border-end">
-          <ul>
-            <li><a href="dashboard-messages.html"">Messages</a></li>
-            <li><a href="dashboard-skills.html"">Skills</a></li>
-            <li><a href="#">Swaps</a></li>
-          </ul>
-        </div>
-        <div class="col">
-          <div id="about" class="content-section">
-            <h2>Messages</h2>
-          </div>
-        </div>
-        </div>
-        <div class="col">1 of 3</div>
-      </div>
+      <h1>Messages</h1>
     </main>
 
     <footer class="site-footer">

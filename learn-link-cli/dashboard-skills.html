@@ -45,9 +45,7 @@
           aria-labelledby="offcanvasNavbarLabel"
         >
           <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-              Profile Menu
-            </h5>
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Main Menu</h5>
             <button
               type="button"
               class="btn-close"
@@ -61,19 +59,22 @@
                 <a
                   class="nav-link active"
                   aria-current="page"
-                  href="#"
+                  href="dashboard-skills.html"
                   onclick="showContent('home')"
-                  >Home</a
+                  >Main Dashboard</a
                 >
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#" onclick="showContent('about')"
-                  >About</a
+                  >My Profile</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" onclick="showContent('services')"
-                  >Services</a
+                <a
+                  class="nav-link"
+                  href="dashboard-messages.html"
+                  onclick="showContent('services')"
+                  >Messages</a
                 >
               </li>
             </ul>
@@ -83,7 +84,32 @@
     </nav>
 
     <main class="main-dashboard">
-      <h1>skills</h1>
+      <form class="d-flex" role="search">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search skills..."
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+      </form>
+
+      <div class="container text-center">
+        <div class="row">
+          <div class="col">
+            <h5>Continue your learning</h5>
+          </div>
+          <div class="col">
+            <h5>Trending Skills</h5>
+            <img src="assets/pie-chart.png" alt="pie-chart" class="pie-chart" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">1 of 3</div>
+          <div class="col">2 of 3</div>
+          <div class="col">3 of 3</div>
+        </div>
+      </div>
     </main>
 
     <footer class="site-footer">

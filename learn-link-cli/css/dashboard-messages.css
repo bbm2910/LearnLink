@@ -10,26 +10,9 @@
 .main-dashboard {
   padding-top: 92px;
 }
-.main-dashboard li {
-  list-style: none;
-}
-.main-dashboard li a {
-  text-decoration: none;
-  color: var(--dark-gray);
-  font-size: 0.9rem;
-  transition-duration: 0.2s;
-}
-.main-dashboard li a:hover {
-  color: var(--orange);
-}
-.left-menu {
-  background-color: var(--light-blue);
-  height: 100vh;
-}
-
-.content-section h2 {
+.main-dashboard h1 {
   text-align: center;
-  margin: 2% auto;
+  font-size: 1.3rem;
 }
 .site-footer {
   width: 100%;
