@@ -89,7 +89,7 @@ CREATE TABLE messages(
     message_id INT GENERATED ALWAYS AS IDENTITY,
     room_id INT,
     user_sent INT,
-    message_id TEXT,
+    message_content TEXT,
     PRIMARY KEY (message_id),
     FOREIGN KEY (room_id) REFERENCES chat_rooms(room_id),
     FOREIGN KEY (user_sent) REFERENCES dim_user(user_id)
