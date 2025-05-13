@@ -85,9 +85,26 @@
       </div>
     </nav>
 
-    <main class="main-dashboard">
-      <h1>Messages</h1>
-    </main>
+    <main class="main-dashboard container mt-5 pt-5">
+  <h1>Messages</h1>
+
+  <!-- Conversation Partner Input (for testing) -->
+  <div class="mb-3">
+    <label for="recipientId" class="form-label">Recipient User ID:</label>
+    <input type="text" id="recipientId" class="form-control" placeholder="Enter recipient user ID" />
+  </div>
+
+  <!-- Message History -->
+  <div id="messageContainer" class="border p-3 mb-3" style="height: 300px; overflow-y: scroll;">
+    <!-- Messages will be appended here -->
+  </div>
+
+  <!-- Send Message -->
+  <div class="input-group">
+    <input type="text" id="messageInput" class="form-control" placeholder="Type your message..." />
+    <button class="btn btn-primary" id="sendBtn">Send</button>
+  </div>
+</main>
 
     <footer class="site-footer">
       <p>&reg; LearnLink 2025 – Part of <span>La Fosse</span> final project</p>
@@ -101,7 +118,8 @@
     ></script>
     <script src="scripts/index.js" defer></script>
     <script src="scripts/logout.js"></script>
-    <script src="scripts/chat.js" defer></script>
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" defer></script>
+    <script src="scripts/chat.js" defer></script>
+    
   </body>
 </html>
