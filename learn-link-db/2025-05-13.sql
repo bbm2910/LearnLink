@@ -3,10 +3,11 @@ DROP TABLE IF EXISTS dim_user, dim_skill, dim_time, facts_learning, facts_sessio
 -- Dimension Table: User
 CREATE TABLE dim_user (
     user_id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    location VARCHAR(255) NOT NULL,
+    postcode VARCHAR(10) NOT NULL,
     image_url VARCHAR(255),
     PRIMARY KEY (user_id)
 );
@@ -78,20 +79,18 @@ CREATE TABLE facts_session (
     FOREIGN KEY (end_time_id) REFERENCES dim_time(time_id)
 );
 
-
 -- Insert into users
-INSERT INTO dim_user (user_id, name, email, password, location, image_url) VALUES
-(1, 'Alice Johnson', 'alice@example.com', 'pass123', 'Camden', 'http://example.com/alice.jpg'),
-(2, 'Bob Smith', 'bob@example.com', 'pass456', 'Islington', 'http://example.com/bob.jpg'),
-(3, 'Carol White', 'carol@example.com', 'pass789', 'Hackney', 'http://example.com/carol.jpg'),
-(4, 'David Lee', 'david@example.com', 'pass321', 'Greenwich', 'http://example.com/david.jpg'),
-(5, 'Eva Green', 'eva@example.com', 'pass654', 'Kensington', 'http://example.com/eva.jpg'),
-(6, 'Frank Moore', 'frank@example.com', 'pass987', 'Richmond', 'http://example.com/frank.jpg'),
-(7, 'Grace Kim', 'grace@example.com', 'pass147', 'Hammersmith', 'http://example.com/grace.jpg'),
-(8, 'Hank Miller', 'hank@example.com', 'pass258', 'Wandsworth', 'http://example.com/hank.jpg'),
-(9, 'Ivy Brown', 'ivy@example.com', 'pass369', 'Lambeth', 'http://example.com/ivy.jpg'),
-(10, 'Jack Wilson', 'jack@example.com', 'pass159', 'Tower Hamlets', 'http://example.com/jack.jpg');
-
+INSERT INTO dim_user (user_id, first_name, last_name, email, password, postcode, image_url) VALUES
+(1, 'Alice', 'Johnson', 'alice@example.com', 'pass123', 'NW1 5DB', 'http://example.com/alice.jpg'),
+(2, 'Bob', 'Smith', 'bob@example.com', 'pass456', 'N1 2AB', 'http://example.com/bob.jpg'),
+(3, 'Carol', 'White', 'carol@example.com', 'pass789', 'E8 3DL', 'http://example.com/carol.jpg'),
+(4, 'David', 'Lee', 'david@example.com', 'pass321', 'SE10 9NF', 'http://example.com/david.jpg'),
+(5, 'Eva', 'Green', 'eva@example.com', 'pass654', 'W8 7NX', 'http://example.com/eva.jpg'),
+(6, 'Frank', 'Moore', 'frank@example.com', 'pass987', 'TW9 1PX', 'http://example.com/frank.jpg'),
+(7, 'Grace', 'Kim', 'grace@example.com', 'pass147', 'W6 0AA', 'http://example.com/grace.jpg'),
+(8, 'Hank', 'Miller', 'hank@example.com', 'pass258', 'SW18 2PU', 'http://example.com/hank.jpg'),
+(9, 'Ivy', 'Brown', 'ivy@example.com', 'pass369', 'SE1 7PB', 'http://example.com/ivy.jpg'),
+(10, 'Jack', 'Wilson', 'jack@example.com', 'pass159', 'E1 6AN', 'http://example.com/jack.jpg');
 
 -- Insert into skills
 INSERT INTO dim_skill (skill_id, skill_name, skill_desc) VALUES
@@ -100,7 +99,6 @@ INSERT INTO dim_skill (skill_id, skill_name, skill_desc) VALUES
 (103, 'Public Speaking', 'Presenting to an audience'),
 (104, 'Photography', 'Art of taking and editing photos'),
 (105, 'Guitar', 'Playing acoustic and electric guitar');
-
 
 -- Insert into time
 INSERT INTO dim_time (time_id, action_date, year, month, day, hour, minute, second) VALUES
