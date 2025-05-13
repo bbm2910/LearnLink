@@ -5,7 +5,7 @@ CREATE TABLE dim_user (
     user_id INT GENERATED ALWAYS AS IDENTITY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL, -- TODO: Add unique constraint for email.
     password VARCHAR(255) NOT NULL,
     postcode VARCHAR(10) NOT NULL,
     image_url VARCHAR(255),
