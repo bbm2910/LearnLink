@@ -25,3 +25,7 @@
   width: 100%;
   color: var(--blue);
 }
+.offcanvas-body button {
+  margin-top: 20%;
+  margin-left: 35%;
+}
