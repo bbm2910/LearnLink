@@ -1,3 +1,13 @@
+:root {
+  --fc-button-text-color: #fff;
+
+  --fc-button-bg-color: #14bf96;
+  --fc-button-border-color: #14bf96;
+  --fc-button-hover-bg-color: #f46a37;
+
+  --fc-button-active-bg-color: #f46a37;
+  --fc-button-active-border-color: #f46a37;
+}
 #calendar {
   max-width: 800px;
   height: 600px;
