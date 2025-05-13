@@ -1,0 +1,17 @@
+#calendar {
+  max-width: 800px;
+  height: 600px;
+  margin: 0 auto;
+  font-size: 0.9em;
+}
+.add-event {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 2% auto;
+}
+.add-event-p {
+  font-size: 0.7rem;
+  width: 100%;
+  color: var(--blue);
+}
