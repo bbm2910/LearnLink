@@ -1,30 +1,7 @@
-:root {
-  --blue: #1865f2;
-  --green: #14bf96;
-  --light-blue: #ecf2fd;
-  --light-gray: #f5f5f5;
-  --dark-gray: #21242c;
-  --white: #ffffff;
-  --orange: #f46a37;
-}
 .main-dashboard {
   padding-top: 92px;
 }
 .main-dashboard form {
   margin: 1% auto 3%;
   width: 30%;
-}
-.pie-chart {
-  width: 100%;
-}
-.site-footer {
-  width: 100%;
-  text-align: center;
-  padding: 10px 0;
-  font-size: 0.8rem;
-  position: absolute;
-  bottom: 0;
-}
-.site-footer span {
-  color: var(--blue);
 }
