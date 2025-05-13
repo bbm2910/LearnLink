@@ -8,7 +8,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     last_name: form.get("last_name"),
     email: form.get("email"),
     password: form.get("password"),
-    location: form.get("location"),
+    postcode: form.get("postcode"),
   };
 
   const options = {
