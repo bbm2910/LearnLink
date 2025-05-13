@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 
-const { userRouter } = require('./routers/users');
+const { logger } = require('./middleware/logger')
+const { userRouter } = require('./routers/userRouter');
 
 const app = express();
 app.use(express.json());
