@@ -14,7 +14,7 @@ class User {
     static async create(data) {
         const { email, password } = data;
         let response = await db.query(
-            "INSERT INTO user_account (username, password) VALUES ($1, $2) RETURNING user_id;",
+            "INSERT INTO user_account (email, password) VALUES ($1, $2) RETURNING user_id;",
             [email, password]
         );
         const newId = response.rows[0].user_id;
@@ -23,7 +23,7 @@ class User {
     }
 
     static getOneUserById = async (user_id) => {
-        const response = await db.query("SELECT * FROM potters WHERE potters_id = $1;", [user_id])
+        const response = await db.query("SELECT * FROM dim_user WHERE user_id = $1;", [user_id])
         if (response.rows.length != 1) {
             throw Error("Unable to locate user")
         }
@@ -31,7 +31,7 @@ class User {
     }
     
     static getOneUserByEmail = async (email) => {
-        const response = await db.query("SELECT * FROM potters WHERE username = $1;", [email])
+        const response = await db.query("SELECT * FROM dim_user WHERE email = $1;", [email])
         if (response.rows.length != 1) {
             throw new Error("Unable to locate user")
         }
