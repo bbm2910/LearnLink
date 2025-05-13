@@ -16,8 +16,54 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="css/calendar.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/dashboard-messages.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "@fullcalendar/core": "https://cdn.skypack.dev/@fullcalendar/core@6.1.17",
+          "@fullcalendar/daygrid": "https://cdn.skypack.dev/@fullcalendar/daygrid@6.1.17"
+        }
+      }
+    </script>
+    <script type="module">
+      import { Calendar } from "@fullcalendar/core";
+      import dayGridPlugin from "@fullcalendar/daygrid";
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const calendarEl = document.getElementById("calendar");
+        const calendar = new Calendar(calendarEl, {
+          plugins: [dayGridPlugin],
+          headerToolbar: {
+            left: "prev,next today",
+            center: "title",
+            right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+          },
+        });
+        calendar.render();
+        const form = document.getElementById("event-form");
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const title = document.getElementById("event-title").value;
+          const date = document.getElementById("event-date").value;
+          const time = document.getElementById("event-time").value;
+
+          if (title && date && time) {
+            const dateTime = `${date}T${time}`; // Combine date and time
+
+            calendar.addEvent({
+              title: title,
+              start: dateTime,
+              allDay: false, // Important! false means it's a timed event
+            });
+
+            form.reset();
+          }
+        });
+      });
+    </script>
   </head>
   <body>
     <nav class="navbar bg-body-tertiary fixed-top border-bottom">
@@ -58,20 +104,26 @@
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li class="nav-item">
                 <a
-                  class="nav-link active"
+                  class="nav-link btn btn-outline-primary"
                   aria-current="page"
                   href="dashboard-skills.html"
                   >Main Dashboard</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Profile</a>
+                <a class="nav-link btn btn-outline-primary" href="#">Profile</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="dashboard-messages.html">Messages</a>
+                <a
+                  class="nav-link btn btn-outline-primary"
+                  href="dashboard-messages.html"
+                  >Messages</a
+                >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="calendar.html">Calendar</a>
+                <a class="nav-link btn btn-outline-primary" href="calendar.html"
+                  >Calendar</a
+                >
               </li>
             </ul>
           </div>
@@ -80,7 +132,83 @@
     </nav>
 
     <main class="main-dashboard">
-      <h1>Calendar</h1>
+      <button
+        type="button"
+        class="btn btn-primary add-event"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+      >
+        Add Event
+      </button>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form id="event-form">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                  Add Event
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <input
+                    type="text"
+                    id="event-title"
+                    class="form-control"
+                    placeholder="Event Title"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <input
+                    type="date"
+                    id="event-date"
+                    class="form-control"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <input
+                    type="time"
+                    id="event-time"
+                    class="form-control"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+              <p class="add-event-p">
+                When you are done with submiting events, press Close
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div id="calendar"></div>
     </main>
 
     <footer class="site-footer">
@@ -95,6 +223,7 @@
 
     <!-- Scripts -->
     <script src="scripts/index.js" defer></script>
+
     <script src="scripts/logout.js"></script>
   </body>
 </html>
