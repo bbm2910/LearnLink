@@ -1,12 +1,3 @@
-:root {
-  --blue: #1865f2;
-  --green: #14bf96;
-  --light-blue: #ecf2fd;
-  --light-gray: #f5f5f5;
-  --dark-gray: #21242c;
-  --white: #ffffff;
-  --orange: #f46a37;
-}
 .main-sign-up {
   padding: 5%;
   width: 40%;
@@ -17,14 +8,6 @@ h1 {
   margin-bottom: 5%;
   color: var(--green);
 }
-.site-footer {
-  width: 100%;
-  text-align: center;
-  padding: 10px 0;
-  font-size: 0.8rem;
-  position: absolute;
-  bottom: 0;
-}
-.site-footer span {
+.t-and-c {
   color: var(--blue);
 }
