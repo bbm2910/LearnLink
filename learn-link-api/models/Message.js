@@ -32,14 +32,7 @@ class Message {
         [user1, user2]
     );
     return response.rows;
-        // const response = await db.query(
-        //     `SELECT * FROM messages
-        //     WHERE (sender_id = $1 AND recipient_id = $2)
-        //     OR (sender_id = $2 AND recipient_id = $1)
-        //     ORDER BY sent_at ASC`, 
-        //     [user1, user2]
-        // )
-        // return response.rows.map(row => new Message(row))
+       
     }
 
     static async getConversationPartners(userId){

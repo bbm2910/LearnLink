@@ -11,6 +11,6 @@ const io = initSocket(server)
 const port = process.env.PORT || 3000
 
 server.listen(port, () => {
-  console.log(`Socket running on port : ${port}`);
+  console.log(`App/Socket running on port : ${port}`);
 })
 

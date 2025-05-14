@@ -70,11 +70,17 @@ function handleSocketEvents(io, socket) {
 
             const withUserId = recipient.user_id;
             const messages = await Message.getChatHistory(userId, withUserId);
+
+            const enrichedMessages = await Promise.all(messages.map(async msg => {
+            const sender = await User.getOneById(msg.senderId);
+            return { ...msg, senderEmail: sender.email };
+            }));
+
             console.log(`Socket; userId: ${userId} withUserId: ${withUserId}`);
-            socket.emit("chat_history", messages);
-            console.log('messages: ', messages);
-            // const messages = await Message.getChatHistory(userId, withUserId);
             // socket.emit("chat_history", messages);
+            socket.emit("chat_history", enrichedMessages);
+            console.log('messages: ', messages);
+          
         } catch (err) {
             console.error("❌ get_chat_history_by_email error:", err);
             socket.emit("error", { message: "Failed to load chat history" });

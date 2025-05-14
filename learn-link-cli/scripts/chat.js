@@ -58,25 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
         messageContainer.appendChild(div);
         messageContainer.scrollTop = messageContainer.scrollHeight;
 
-        // const div = document.createElement("div");
-        // div.className = "mb-1";
-
-        // const isSender = data.senderId == currentUserId;
-        // const label = isSender ? "You" : currentRecipientEmail;
-
-        // div.innerHTML = `<strong>${label}</strong>: ${data.message}`;
-        // messageContainer.appendChild(div);
-        // messageContainer.scrollTop = messageContainer.scrollHeight;
-
-        // console.log("📥 Message received:", data); //err log
-        // const currentUserId = localStorage.getItem("user_id");
-        // const div = document.createElement("div");
-        // div.className = "mb-1";
-        // const senderName = (data.senderId == currentUserId) ? "You" : data.senderId;
-        // div.innerHTML = `<strong>${senderName}</strong>: ${data.message}`;
-        // messageContainer.appendChild(div);
-        // messageContainer.scrollTop = messageContainer.scrollHeight;
-
     })
 
     //Get chat history 
@@ -86,12 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         currentRecipientEmail = email;
         socket.emit("get_chat_history_by_email", { email });
-        // const withUserId = recipientInput.value.trim()
-        // currentRecipient = withUserId
-
-        // if(withUserId){
-        //     socket.emit("get_chat_history", { withUserId })
-        // }
+    
     });
 
     socket.on("chat_history", (messages) => {
@@ -101,18 +77,10 @@ document.addEventListener("DOMContentLoaded", () => {
          const div = document.createElement("div");
          div.className = "mb-1";
          const isSender = msg.senderId == currentUserId;
-         const label = isSender ? "You" : currentRecipientEmail;
+         const label = isSender ? "You" : msg.senderEmail;
           div.innerHTML = `<strong>${label}</strong>: ${msg.content}`;
          messageContainer.appendChild(div);
-        // const currentUserId = localStorage.getItem("user_id");
-        // messageContainer.innerHTML = "";
-
-        // messages.forEach((msg) => {
-        //     const div = document.createElement("div");
-        //     div.className = "mb-1";
-        //     const senderName = (msg.senderId == currentUserId) ? "You" : msg.senderId;
-        //     div.innerHTML = `<strong>${senderName}</strong>: ${msg.content}`;
-        //     messageContainer.appendChild(div);
+    
         });
 
         messageContainer.scrollTop = messageContainer.scrollHeight;
@@ -124,12 +92,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// messageContainer.innerHTML = "";
-        // messages.forEach((msg) => {
-        //     const label = msg.sender_id === parseInt(localStorage.getItem("user_id")) ? "You" : `User ${msg.sender_id}`;
-        //     const div = document.createElement("div");
-        //     div.className = "mb-1";
-        //     div.innerHTML = `<strong>${label}</strong>: ${msg.message}`;
-        //     messageContainer.appendChild(div);
-        //})
-        // messageContainer.scrollTop = messageContainer.scrollHeight
