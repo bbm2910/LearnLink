@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     socket.on("connect", () => {
-    console.log("Connected to Socket.IO server with ID:", socket.id);
+    console.log("Connected to Socket.IO");
     });
 
     socket.on("connect_error", (err) => {
@@ -69,8 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         messages.forEach((msg) => {
         const div = document.createElement("div");
         const isSender = String(msg.senderId) === String(currentUserId);
-        
-        console.log("CH isSender: ", isSender);
+
         div.className = `message ${isSender ? "from-me" : "from-them"}`;
         div.innerHTML = `<strong>${isSender ? "You" : msg.senderEmail}:</strong> ${msg.content}`;
         messageContainer.appendChild(div);
@@ -81,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     socket.on("error", (err) => {
-        console.error("❌ Socket error:", err);
+        console.error("Socket error:", err);
         alert(err.message || "Socket Error");
     });
 });

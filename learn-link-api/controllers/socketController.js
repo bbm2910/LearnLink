@@ -46,7 +46,7 @@ function handleSocketEvents(io, socket) {
             // Send to recipient
             io.to(`user_${recipientId}`).emit("private_message", payload);
 
-            // Echo back to sender for confirmation (optional)
+            // Echo back to sender for confirmation 
             socket.emit("private_message", payload);
             
         } catch (err) {
@@ -71,7 +71,6 @@ function handleSocketEvents(io, socket) {
             return { ...msg, senderEmail: sender.email };
             }));
 
-            // socket.emit("chat_history", messages);
             socket.emit("chat_history", enrichedMessages);
           
         } catch (err) {
