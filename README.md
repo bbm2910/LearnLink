@@ -1,7 +1,4 @@
 ### LearnLink
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <h1><i>Learn</i> Link - Full stack MVP </h1>
 
@@ -53,12 +50,12 @@ A location-based web app that matches users who want to learn a skill with other
     •   🧾 Profile ratings and reviews
     •   📊 Swap history and analytics
     •   📱 Mobile app version
-    •   Social media profile sharing.
-    •   Swap request flow before chat initiation.
-    •   QR code-based session logging.
-    •   General location display (Google Maps API).
-    •   Visualizations: Total learning time per skill (requires session tracking).
-    •   Learning streak tracking.
+    •   🌐 Social media profile sharing.
+    •   🔄 Swap request flow before chat initiation.
+    •   📲 QR code-based session logging.
+    •   📍 General location display (Google Maps API).
+    •   📈 Visualizations: Total learning time per skill (requires session tracking).
+    •   🎯 Learning streak tracking.
 
 ## 🧱 Data Architecture
 
@@ -66,11 +63,10 @@ LearnLink uses a **star schema** with dimension and fact tables:
 
 - `dim_user`: Stores user profiles
 - `dim_skill`: Skill categories and descriptions
-- `dim_time`: Timestamp breakdowns for learning sessions
+- `dim_time`:  breakdowns for learning sessions
 - `facts_learning`: Skills a user is learning
 - `facts_teaching`: Skills a user is teaching
 - `facts_session`: Logged peer-to-peer sessions
-- `chat_rooms` and `messages`: Messaging system
 
 PostgreSQL is used for storing structured, relational data that powers the visualizations and dashboard.
  
@@ -117,13 +113,13 @@ The backend should now be running at http://localhost:3000.
 
 This project's aim was to integrate all core Lafosse course topics:
 
-- • ✅ Agile methodologies & version control (Git & GitHub)
-- • ✅ UX design principles and wireframing
-- • ✅ Frontend development (HTML, CSS, JavaScript)
-- • ✅ Backend development (Express, Node.js, Sockets io)
-- • ✅ MVC architecture implementation
-- • ✅ Database design and integration (SQL)
-- • ✅ Data visualisation (matplotlib and seaborn)
+    • ✅ Agile methodologies & version control (Git & GitHub)
+    • ✅ UX design principles and wireframing
+    • ✅ Frontend development (HTML, CSS, JavaScript)
+    • ✅ Backend development (Express, Node.js, Sockets io)
+    • ✅ MVC architecture implementation
+    • ✅ Database design and integration (SQL)
+    • ✅ Data visualisation (matplotlib and seaborn)
 
 **Technical Architecture**
 
@@ -131,7 +127,7 @@ This project's aim was to integrate all core Lafosse course topics:
     •   Backend: Node.js, Express
     •   Database: SQL
     •   Auth: Basic auth with hashed passwords
-    -   Testing: Jest, Supertest
+    •   Testing: Jest, Supertest
     •   Deployment: Render/Netlify
     •   Version Control: Git + GitHub, following feature branch workflow
 
@@ -142,9 +138,10 @@ This project's aim was to integrate all core Lafosse course topics:
     •   UI: Human-centred, clean, minimalist
 
 
-**Sorces**
+**Sources**
 
-- img (/beyond_stem/client/homePage.html) https://storyset.com/
+![Screenshot of the image sourced.](/learn-link-cli/assets/undraw_online-connection_c56e.png)
+ https://storyset.com/
 
 ⸻
 
@@ -160,19 +157,13 @@ This project's aim was to integrate all core Lafosse course topics:
 
 **API**
 
-    GET '/' - Entry endpoint
-    GET '/history' - get all history facts from database
-    GET '/history/id' - get fact with specific id from database
-    POST '/history' - create new fact in the database
-    PATCH '/history/id' - update fact with specific id
-    DELETE '/history/id' - delete fact with specific id
 
 ⸻
 
 **Testing**
 
     •   Automated test coverage target: 60%+
-    •   Automated test coverage actual: 78%
+    •   Automated test coverage actual: %
     •   Tests written with Jest and Supertest
 
 **Resources**
@@ -197,22 +188,10 @@ From user-centred design to full-stack development and project delivery, this pr
 ## Contributors ✨👏
 
 - [Bobby](https://github.com/bbm2910)
-- [Khavan](https://github.com/gitKhavan)
-- [Daniel](hhttps://github.com/MrDanielHo)
 - [Emma](https://github.com/EmmaAcquah)
+- [Khavan](https://github.com/gitKhavan)
+- [Daniel](https://github.com/MrDanielHo)
 - [Ubong](https://github.com/sfxmaudu)
 
 
 
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
