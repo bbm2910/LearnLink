@@ -1,4 +1,5 @@
 const { Message } = require('../models/Message');
+const { User } = require('../models/User')
 
 function handleSocketEvents(io, socket) {
     const userId = socket.user.user_id;
@@ -6,18 +7,28 @@ function handleSocketEvents(io, socket) {
     socket.join(`user_${userId}`);
 
     // Send private message
-    socket.on("private_message", async ({ recipientId, message }) => {
+    socket.on("private_message", async ({ recipientEmail, message }) => {
 
-        console.log("📨 Received private_message:", { recipientId, message });
+        console.log("📨 Received private_message:", { recipientEmail, message });
 
-        if (!recipientId || !message) {
+        if (!recipientEmail || !message) {
             console.log("userId: ", userId);
             console.log("⚠️ Missing recipientId or message");
             socket.emit("error", { message: "Recipient or message missing" });
         return; //err log
-    }
+        }
+
 
         try {
+
+            const recipient = await User.getOneUserByEmail(recipientEmail)
+            if(!recipient){
+                socket.emit("error", { message: "Recipient not found" })
+            }
+
+            const recipientId = recipient.user_id
+
+
             const savedMessage = await Message.create({
                 sender_id: userId,
                 recipient_id: recipientId,
@@ -26,19 +37,11 @@ function handleSocketEvents(io, socket) {
 
             console.log("✅ Message saved to DB:", savedMessage);
 
-            // io.to(`user_${recipientId}`).emit("private_message", {
-            //     senderId: userId,
-            //     message: savedMessage.message,
-            //     timestamp: savedMessage.sent_at,
-            // });
+            const sender = await User.getOneById(userId)
 
-            // socket.emit("private_message", {
-            //     senderId: userId,
-            //     message: savedMessage.message,
-            //     timestamp: savedMessage.sent_at,
-            // });
             const payload = {
                 senderId: userId,
+                senderEmail: sender.email,
                 recipientId,
                 message: savedMessage.message,
                 timestamp: savedMessage.sent_at,
@@ -57,11 +60,23 @@ function handleSocketEvents(io, socket) {
     });
 
     // Get chat history
-    socket.on("get_chat_history", async ({ withUserId }) => {
+    socket.on("get_chat_history_by_email", async ({ email }) => {
         try {
+            const recipient = await User.getOneUserByEmail(email);
+            if (!recipient) {
+                socket.emit("error", { message: "Recipient not found" });
+                return;
+            }
+
+            const withUserId = recipient.user_id;
             const messages = await Message.getChatHistory(userId, withUserId);
+            console.log(`Socket; userId: ${userId} withUserId: ${withUserId}`);
             socket.emit("chat_history", messages);
+            console.log('messages: ', messages);
+            // const messages = await Message.getChatHistory(userId, withUserId);
+            // socket.emit("chat_history", messages);
         } catch (err) {
+            console.error("❌ get_chat_history_by_email error:", err);
             socket.emit("error", { message: "Failed to load chat history" });
         }
     });
@@ -77,70 +92,5 @@ function handleSocketEvents(io, socket) {
         }
     });
 }
-
-// function handleSocketEvents(io, socket){
-//     const userId = socket.user.userId
-
-
-//     //Join users private room
-//     socket.join(`user_${userId}`)
-
-//     //Send private message
-//     socket.on("private_message", async({recipientId, message}) => {
-//         try {
-
-//             console.log("Received private_message:", { recipient_Id, message });
-//             console.log("Sender user object from socket:", socket.user);
-
-//             const savedMessage = await Message.create({
-//                 sender_id: userId,
-//                 recipient_id: recipientId,
-//                 message: message,
-//             });
-
-//             console.log("Message saved:", savedMessage);
-
-//             //emit to recipients room
-//             io.to(`user_${recipientId}`).emit("private_message", {
-//                 senderId: userId,
-//                 message: savedMessage.message,
-//                 timestamp: savedMessage.sent_at,
-//             });
-
-//             //emit back to sender
-//             socket.emit("private_message", {
-//                 senderId: userId,
-//                 message: savedMessage.message,
-//                 timestamp: savedMessage.sent_at,
-//             });
-
-//         } catch (err){
-//             console.log("❌ Error in private_message:", err);
-//             socket.emit("error", { message: "Failed to send message !"})
-//         }
-
-//         //Get private conversation between users
-//         socket.on("get_chat_history", async({withUserId}) => {
-//             try {
-//                 const messages = await Message.getChatHistory(userId, withUserId)
-//                 socket.emit("chat_history", messages)
-//             } catch (err){
-//                 socket.emit("error", { message: "Failed to load chat history"})
-//             }
-//         });
-
-//         //Get list of users this person has messaged
-//         socket.on("get_conversations", async () => {
-//             try {
-//                 const partners = await Message.getConversationPartners(userId)
-//                 socket.emit("conversation_list", partners)
-
-//             } catch(err){
-//                 console.error("Error in 'private_message' handler:", err);
-//                 socket.emit("error", { message: "Failed to load conversation partners"})
-//             }
-//         })
-//     })
-// }
 
 module.exports = { handleSocketEvents }

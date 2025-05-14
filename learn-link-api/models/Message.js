@@ -20,13 +20,26 @@ class Message {
 
     static async getChatHistory(user1, user2){
         const response = await db.query(
-            `SELECT * FROM messages
-            WHERE (sender_id = $1 AND recipient_id = $2)
-            OR (sender_id = $2 AND recipient_id = $1)
-            ORDER BY sent_at ASC`, 
-            [user1, user2]
-        )
-        return response.rows.map(row => new Message(row))
+        `SELECT 
+            sender_id AS "senderId",
+            recipient_id AS "recipientId",
+            message AS "content",
+            sent_at AS "timestamp"
+         FROM messages
+         WHERE (sender_id = $1 AND recipient_id = $2)
+         OR (sender_id = $2 AND recipient_id = $1)
+         ORDER BY sent_at ASC`, 
+        [user1, user2]
+    );
+    return response.rows;
+        // const response = await db.query(
+        //     `SELECT * FROM messages
+        //     WHERE (sender_id = $1 AND recipient_id = $2)
+        //     OR (sender_id = $2 AND recipient_id = $1)
+        //     ORDER BY sent_at ASC`, 
+        //     [user1, user2]
+        // )
+        // return response.rows.map(row => new Message(row))
     }
 
     static async getConversationPartners(userId){
