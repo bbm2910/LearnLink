@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     socket.on("connect", () => {
-    console.log("Connected to Socket.IO server");
+    console.log("Connected to Socket.IO server with ID:", socket.id);
     });
 
     socket.on("connect_error", (err) => {
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }); // err log
        
         socket.emit("private_message", {
-        to: recipientId,  
+        recipientId: recipientId,  
         message: message
   });
         messageInput.value = "";

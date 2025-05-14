@@ -14,6 +14,3 @@ server.listen(port, () => {
   console.log(`Socket running on port : ${port}`);
 })
 
-app.listen(port, () => {
-  console.log(`API running on port: ${port}`);
-});

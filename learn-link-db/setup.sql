@@ -91,12 +91,11 @@ CREATE TABLE chat_rooms(
 CREATE TABLE messages(
     message_id INT GENERATED ALWAYS AS IDENTITY,
     sender_id INT,
-    recipient_id INT
-    message_content TEXT,
-    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    recipient_id INT,
+    message VARCHAR(500),
+    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (message_id),
-    FOREIGN KEY (room_id) REFERENCES chat_rooms(room_id),
-    FOREIGN KEY (sender_id) REFERENCES dim_user(user_id)
+    FOREIGN KEY (sender_id) REFERENCES dim_user(user_id),
     FOREIGN KEY (recipient_id) REFERENCES dim_user(user_id)
 );
 

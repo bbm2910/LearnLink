@@ -1,7 +1,8 @@
 const { Message } = require('../models/Message');
 
 function handleSocketEvents(io, socket) {
-    const userId = socket.user.userId;
+    const userId = socket.user.user_id;
+    console.log(`Controller userID: ${userId}`);
     socket.join(`user_${userId}`);
 
     // Send private message
