@@ -1,4 +1,3 @@
-### LearnLink
 
 <h1><i>Learn</i> Link - Full stack MVP </h1>
 
