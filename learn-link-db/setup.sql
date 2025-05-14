@@ -5,7 +5,7 @@ CREATE TABLE dim_user (
     user_id INT GENERATED ALWAYS AS IDENTITY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL, -- TODO: Add unique constraint for email.
+    email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     postcode VARCHAR(10) NOT NULL,
     image_url VARCHAR(255),
@@ -79,6 +79,7 @@ CREATE TABLE facts_session (
     FOREIGN KEY (end_time_id) REFERENCES dim_time(time_id)
 );
 
+-- To record chat rooms
 CREATE TABLE chat_rooms(
     room_id INT GENERATED ALWAYS AS IDENTITY,
     user_1 INT,
@@ -88,6 +89,7 @@ CREATE TABLE chat_rooms(
     FOREIGN KEY (user_2) REFERENCES dim_user(user_id)
 );
 
+-- To record messages
 CREATE TABLE messages(
     message_id INT GENERATED ALWAYS AS IDENTITY,
     room_id INT,
@@ -117,14 +119,60 @@ INSERT INTO dim_skill (skill_name, skill_desc) VALUES
 ('Data Science', 'Data analysis and machine learning'),
 ('Public Speaking', 'Presenting to an audience'),
 ('Photography', 'Art of taking and editing photos'),
-('Guitar', 'Playing acoustic and electric guitar');
+('Guitar', 'Playing acoustic and electric guitar'),
+('JavaScript', 'Frontend web programming language'),
+('SQL', 'Structured Query Language for databases'),
+('Cooking', 'Preparing meals and culinary techniques'),
+('Yoga', 'Physical and mental wellness practice'),
+('French', 'Language: French speaking and writing');
+
 
 -- Insert into time
 INSERT INTO dim_time (action_date, year, month, day, hour, minute, second) VALUES
-('2025-06-01 10:00:00', 2025, 5, 1, 10, 0, 0),
-('2025-06-01 11:00:00', 2025, 5, 1, 11, 0, 0),
-('2025-07-02 14:00:00', 2025, 5, 2, 14, 0, 0),
-('2025-07-02 15:30:00', 2025, 5, 2, 15, 30, 0);
+('2025-01-08 10:00:00', 2025, 1, 8, 10, 0, 0),
+('2025-01-08 11:00:00', 2025, 1, 8, 11, 0, 0),
+('2025-01-22 15:30:00', 2025, 1, 22, 15, 30, 0),
+('2025-01-22 17:00:00', 2025, 1, 22, 17, 0, 0),
+
+('2025-02-05 09:00:00', 2025, 2, 5, 9, 0, 0),
+('2025-02-05 10:30:00', 2025, 2, 5, 10, 30, 0),
+('2025-02-19 14:00:00', 2025, 2, 19, 14, 0, 0),
+('2025-02-19 15:30:00', 2025, 2, 19, 15, 30, 0),
+
+('2025-03-06 11:00:00', 2025, 3, 6, 11, 0, 0),
+('2025-03-06 12:00:00', 2025, 3, 6, 12, 0, 0),
+('2025-03-20 13:00:00', 2025, 3, 20, 13, 0, 0),
+('2025-03-20 14:30:00', 2025, 3, 20, 14, 30, 0),
+
+('2025-04-03 10:00:00', 2025, 4, 3, 10, 0, 0),
+('2025-04-03 11:30:00', 2025, 4, 3, 11, 30, 0),
+('2025-04-17 15:00:00', 2025, 4, 17, 15, 0, 0),
+('2025-04-17 16:30:00', 2025, 4, 17, 16, 30, 0),
+
+('2025-05-01 13:00:00', 2025, 5, 1, 13, 0, 0),
+('2025-05-01 14:00:00', 2025, 5, 1, 14, 0, 0),
+('2025-05-15 09:30:00', 2025, 5, 15, 9, 30, 0),
+('2025-05-15 11:00:00', 2025, 5, 15, 11, 0, 0),
+
+('2025-06-05 10:00:00', 2025, 6, 5, 10, 0, 0),
+('2025-06-05 11:30:00', 2025, 6, 5, 11, 30, 0),
+('2025-06-19 14:00:00', 2025, 6, 19, 14, 0, 0),
+('2025-06-19 15:30:00', 2025, 6, 19, 15, 30, 0),
+
+('2025-07-03 13:00:00', 2025, 7, 3, 13, 0, 0),
+('2025-07-03 14:30:00', 2025, 7, 3, 14, 30, 0),
+('2025-07-17 16:00:00', 2025, 7, 17, 16, 0, 0),
+('2025-07-17 17:00:00', 2025, 7, 17, 17, 0, 0),
+
+('2025-08-07 09:00:00', 2025, 8, 7, 9, 0, 0),
+('2025-08-07 10:30:00', 2025, 8, 7, 10, 30, 0),
+('2025-08-21 14:00:00', 2025, 8, 21, 14, 0, 0),
+('2025-08-21 15:30:00', 2025, 8, 21, 15, 30, 0),
+
+('2025-09-04 11:00:00', 2025, 9, 4, 11, 0, 0),
+('2025-09-04 12:30:00', 2025, 9, 4, 12, 30, 0),
+('2025-09-18 13:00:00', 2025, 9, 18, 13, 0, 0),
+('2025-09-18 14:30:00', 2025, 9, 18, 14, 30, 0);
 
 -- -- Insert into learning
 -- INSERT INTO facts_learning (user_id, skill_1_id, skill_2_id, skill_3_id, skill_4_id, skill_5_id) VALUES
@@ -143,3 +191,11 @@ INSERT INTO dim_time (action_date, year, month, day, hour, minute, second) VALUE
 -- (1, 2, 101, 1, 2),
 -- (3, 4, 105, 3, 4),
 -- (5, 6, 103, 1, 2);
+
+-- -- Chat room sim 1
+-- INSERT INTO chat_rooms (user_1, user_2)
+-- VALUES (1, 2);  -- Alice and Bob in a chat room
+
+-- -- Message sim 1
+-- INSERT INTO messages (room_id, user_sent, message_content)
+-- VALUES (1, 1, 'Hello, Bob!');  -- Alice sends a message to Bob
