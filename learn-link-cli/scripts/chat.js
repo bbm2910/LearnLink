@@ -46,11 +46,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         console.log("📥 Message received:", data); //err log
 
-        const div = document.createElement("div")
-        div.className = "mb-1"
-        div.innerHTML = `<strong>${data.senderId}</strong>: ${data.message}`
-        messageContainer.appendChild(div)
-        messageContainer.scrollTop = messageContainer.scrollHeight
+        const isSender = data.senderId === parseInt(localStorage.getItem("user_id"));
+        const label = isSender ? "You" : `User ${data.senderId}`;
+
+        const div = document.createElement("div");
+        div.className = "mb-1";
+        div.innerHTML = `<strong>${label}</strong>: ${data.message}`;
+        messageContainer.appendChild(div);
+        messageContainer.scrollTop = messageContainer.scrollHeight;
     })
 
     //Get chat history 
@@ -66,10 +69,11 @@ document.addEventListener("DOMContentLoaded", () => {
     socket.on("chat_history", (messages) => {
         messageContainer.innerHTML = "";
         messages.forEach((msg) => {
-            const div = document.createElement("div")
-            div.className = "mb-1"
-            div.innerHTML = `<strong>${msg.senderId}</strong>: ${msg.content}`
-            messageContainer.appendChild(div)
+            const label = msg.sender_id === parseInt(localStorage.getItem("user_id")) ? "You" : `User ${msg.sender_id}`;
+            const div = document.createElement("div");
+            div.className = "mb-1";
+            div.innerHTML = `<strong>${label}</strong>: ${msg.message}`;
+            messageContainer.appendChild(div);
         })
         messageContainer.scrollTop = messageContainer.scrollHeight
     })

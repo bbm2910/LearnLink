@@ -18,9 +18,11 @@ document.getElementById("signinForm").addEventListener("submit", async (e) => {
   const response = await fetch("http://localhost:3000/users/login", options);
 
   const data = await response.json();
+  console.log(data);
 
   if (response.status == 200) {
     localStorage.setItem("token", data.token);
+    
     window.location.assign("dashboard-skills.html");
   } else {
     alert(data.error);

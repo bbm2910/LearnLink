@@ -26,17 +26,30 @@ function handleSocketEvents(io, socket) {
 
             console.log("✅ Message saved to DB:", savedMessage);
 
-            io.to(`user_${recipientId}`).emit("private_message", {
-                senderId: userId,
-                message: savedMessage.message,
-                timestamp: savedMessage.sent_at,
-            });
+            // io.to(`user_${recipientId}`).emit("private_message", {
+            //     senderId: userId,
+            //     message: savedMessage.message,
+            //     timestamp: savedMessage.sent_at,
+            // });
 
-            socket.emit("private_message", {
+            // socket.emit("private_message", {
+            //     senderId: userId,
+            //     message: savedMessage.message,
+            //     timestamp: savedMessage.sent_at,
+            // });
+            const payload = {
                 senderId: userId,
+                recipientId,
                 message: savedMessage.message,
                 timestamp: savedMessage.sent_at,
-            });
+            };
+
+            // Send to recipient
+            io.to(`user_${recipientId}`).emit("private_message", payload);
+
+            // Echo back to sender for confirmation (optional)
+            socket.emit("private_message", payload);
+            
         } catch (err) {
             console.log("❌ Error in private_message:", err);
             socket.emit("error", { message: "Failed to send message!" });
