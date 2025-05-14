@@ -47,16 +47,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Receive message
     socket.on("private_message", (data) => {
+        // const div = document.createElement("div");
+        // div.className = "mb-1";
+
+        // const currentUserId = parseInt(localStorage.getItem("user_id"));  // force to number
+        // const isSender = data.senderId === currentUserId;
+        // const label = isSender ? "You" : data.senderEmail || currentRecipientEmail;
+
+        // div.innerHTML = `<strong>${label}</strong>: ${data.message}`;
+        // messageContainer.appendChild(div);
+        // messageContainer.scrollTop = messageContainer.scrollHeight;
+
         const div = document.createElement("div");
-        div.className = "mb-1";
-
-        const currentUserId = parseInt(localStorage.getItem("user_id"));  // force to number
         const isSender = data.senderId === currentUserId;
-        const label = isSender ? "You" : data.senderEmail || currentRecipientEmail;
-
-        div.innerHTML = `<strong>${label}</strong>: ${data.message}`;
+        console.log("PM isSender: ", isSender);
+        div.className = `message ${isSender ? "from-me" : "from-them"}`;
+        div.innerHTML = `<strong>${isSender ? "You" : data.senderEmail || currentRecipientEmail}:</strong> ${data.message}`;
         messageContainer.appendChild(div);
         messageContainer.scrollTop = messageContainer.scrollHeight;
+
 
     })
 
@@ -74,12 +83,18 @@ document.addEventListener("DOMContentLoaded", () => {
         messageContainer.innerHTML = "";
 
         messages.forEach((msg) => {
-         const div = document.createElement("div");
-         div.className = "mb-1";
-         const isSender = msg.senderId == currentUserId;
-         const label = isSender ? "You" : msg.senderEmail;
-          div.innerHTML = `<strong>${label}</strong>: ${msg.content}`;
-         messageContainer.appendChild(div);
+        //  const div = document.createElement("div");
+        //  div.className = "mb-1";
+        //  const isSender = msg.senderId == currentUserId;
+        //  const label = isSender ? "You" : msg.senderEmail;
+        //   div.innerHTML = `<strong>${label}</strong>: ${msg.content}`;
+        //  messageContainer.appendChild(div);
+        const div = document.createElement("div");
+        const isSender = msg.senderId == currentUserId;
+        console.log("CH isSender: ", isSender);
+        div.className = `message ${isSender ? "from-me" : "from-them"}`;
+        div.innerHTML = `<strong>${isSender ? "You" : msg.senderEmail}:</strong> ${msg.content}`;
+        messageContainer.appendChild(div);
     
         });
 

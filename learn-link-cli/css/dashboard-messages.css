@@ -1,1 +1,38 @@
+#messageContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  height: 300px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
 
+/* Base message styling */
+.message {
+  max-width: 70%;
+  margin-bottom: 10px;
+  padding: 10px 14px;
+  border-radius: 20px;
+  word-wrap: break-word;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* Messages from current user */
+.from-me {
+  background-color: #007bff;
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
+}
+
+/* Messages from others */
+.from-them {
+  background-color: #f1f0f0;
+  color: black;
+  align-self: flex-start;
+  border-bottom-left-radius: 0;
+}
