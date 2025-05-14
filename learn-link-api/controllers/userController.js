@@ -36,6 +36,10 @@ async function userLogin(req, res) {
         res.status(200).json({
           success: true,
           token: token,
+          user: {
+            id: user.user_id,
+            email: user.email
+          }
         });
       };
 

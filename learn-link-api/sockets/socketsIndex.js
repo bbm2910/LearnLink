@@ -13,6 +13,7 @@ function initSocket(server){
     io.use((socket, next) => {
         try {
             const token = socket.handshake.auth.token
+            console.log("SI Token: ", token);
             console.log(`Token: ${token}`);
             if (!token){
                 console.log("No token provided");
@@ -22,7 +23,6 @@ function initSocket(server){
 
             const user = jwt.verify(token, process.env.SECRET_TOKEN)
             socket.user = user
-            console.log("✅ Authenticated socket user:", user);
             next()
         } catch(err) {
             console.log("❌ Auth error:", err.message);

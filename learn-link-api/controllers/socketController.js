@@ -3,19 +3,17 @@ const { User } = require('../models/User')
 
 function handleSocketEvents(io, socket) {
     const userId = socket.user.user_id;
-    console.log(`Controller userID: ${userId}`);
+    
     socket.join(`user_${userId}`);
 
     // Send private message
     socket.on("private_message", async ({ recipientEmail, message }) => {
 
-        console.log("📨 Received private_message:", { recipientEmail, message });
+       
 
         if (!recipientEmail || !message) {
-            console.log("userId: ", userId);
-            console.log("⚠️ Missing recipientId or message");
             socket.emit("error", { message: "Recipient or message missing" });
-        return; //err log
+        return; 
         }
 
 
@@ -35,8 +33,6 @@ function handleSocketEvents(io, socket) {
                 message,
             });
 
-            console.log("✅ Message saved to DB:", savedMessage);
-
             const sender = await User.getOneById(userId)
 
             const payload = {
@@ -54,7 +50,6 @@ function handleSocketEvents(io, socket) {
             socket.emit("private_message", payload);
             
         } catch (err) {
-            console.log("❌ Error in private_message:", err);
             socket.emit("error", { message: "Failed to send message!" });
         }
     });
@@ -76,10 +71,8 @@ function handleSocketEvents(io, socket) {
             return { ...msg, senderEmail: sender.email };
             }));
 
-            console.log(`Socket; userId: ${userId} withUserId: ${withUserId}`);
             // socket.emit("chat_history", messages);
             socket.emit("chat_history", enrichedMessages);
-            console.log('messages: ', messages);
           
         } catch (err) {
             console.error("❌ get_chat_history_by_email error:", err);

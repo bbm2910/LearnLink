@@ -96,6 +96,7 @@ CREATE TABLE messages(
     recipient_id INT,
     message VARCHAR(500),
     sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    read BOOLEAN DEFAULT false,
     PRIMARY KEY (message_id),
     FOREIGN KEY (sender_id) REFERENCES dim_user(user_id),
     FOREIGN KEY (recipient_id) REFERENCES dim_user(user_id)

@@ -22,7 +22,7 @@ document.getElementById("signinForm").addEventListener("submit", async (e) => {
 
   if (response.status == 200) {
     localStorage.setItem("token", data.token);
-    
+    localStorage.setItem("user_id", data.user.id)
     window.location.assign("dashboard-skills.html");
   } else {
     alert(data.error);

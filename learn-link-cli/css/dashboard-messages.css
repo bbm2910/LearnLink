@@ -1,4 +1,6 @@
 #messageContainer {
+    padding-top: 12px;
+  padding-bottom: 12px;
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -11,28 +13,29 @@
 
 /* Base message styling */
 .message {
-  max-width: 70%;
-  margin-bottom: 10px;
+  max-width: 75%;
+  margin-bottom: 8px;
   padding: 10px 14px;
   border-radius: 20px;
   word-wrap: break-word;
   display: inline-block;
   font-size: 14px;
   line-height: 1.4;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Messages from current user */
 .from-me {
-  background-color: #007bff;
+  background-color: #0d6efd; /* Bootstrap's primary blue */
   color: white;
   align-self: flex-end;
-  border-bottom-right-radius: 0;
+  border-bottom-right-radius: 4px;
 }
 
 /* Messages from others */
 .from-them {
-  background-color: #f1f0f0;
+  background-color: #e9ecef; /* light Bootstrap gray */
   color: black;
   align-self: flex-start;
-  border-bottom-left-radius: 0;
+  border-bottom-left-radius: 4px;
 }
