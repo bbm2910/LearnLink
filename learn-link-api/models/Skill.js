@@ -35,45 +35,64 @@ class Skill {
     const response = await db.query(
       `SELECT * FROM dim_skill 
             WHERE LOWER(skill_name) LIKE $1 
-                OR LOWER(skill_desc) LIKE $1`,
-      [formattedQuery]
-    );
-    return response.rows.map((row) => new Skill(row));
-  }
-  static async getUserSkills(userId) {
-    // Get teaching skills
-    const teachingQuery = await db.query(
-      `SELECT s.skill_id, s.skill_cat, s.skill_name, s.skill_desc, 'teaching' as skill_type
-       FROM dim_skill s
-       JOIN facts_teaching t ON 
-         s.skill_id = t.skill_1_id OR 
-         s.skill_id = t.skill_2_id OR 
-         s.skill_id = t.skill_3_id OR 
-         s.skill_id = t.skill_4_id OR 
-         s.skill_id = t.skill_5_id
-       WHERE t.user_id = $1`,
-      [userId]
+                OR LOWER(skill_desc) LIKE $1`, 
+            [formattedQuery]
+        );
+        return response.rows.map(row => new Skill(row));
+    }
+
+  // For "Top Skills" pie chart visualisation
+  static getTopSkillsInfo = async () => {
+    const response = await db.query(
+      // Return top 5 skills being learned
+      `SELECT ds.skill_name, 
+      COUNT(DISTINCT fs.learner_id) AS number_of_learners 
+      FROM facts_session fs 
+      JOIN dim_skill ds ON fs.skill_id = ds.skill_id 
+      WHERE fs.learner_id IS NOT NULL 
+      GROUP BY ds.skill_name 
+      ORDER BY number_of_learners DESC 
+      LIMIT 5;`
     );
 
-    // Get learning skills
-    const learningQuery = await db.query(
-      `SELECT s.skill_id, s.skill_cat, s.skill_name, s.skill_desc, 'learning' as skill_type
-       FROM dim_skill s
-       JOIN facts_learning l ON 
-         s.skill_id = l.skill_1_id OR 
-         s.skill_id = l.skill_2_id OR 
-         s.skill_id = l.skill_3_id OR 
-         s.skill_id = l.skill_4_id OR 
-         s.skill_id = l.skill_5_id
-       WHERE l.user_id = $1`,
-      [userId]
+    if(response.rows.length === 0) {
+      throw Error("No skills information available.");
+    }
+
+    return response.rows;
+  }
+
+  // For "Current Skills" bar chart visualisation
+  static getCurrentSkillsInfo = async (user_id) => {
+    const response = await db.query(
+        `SELECT
+        du.user_id,
+        du.first_name,
+        du.last_name,
+        ds.skill_name,
+        COUNT(fs.skill_id) AS number_of_sessions
+        FROM
+            dim_user du
+        JOIN
+            facts_session fs ON du.user_id = fs.learner_id
+        JOIN
+            dim_skill ds ON fs.skill_id = ds.skill_id
+        WHERE
+            du.user_id = $1
+        GROUP BY
+            du.user_id, du.first_name, du.last_name, ds.skill_name
+        ORDER BY
+            ds.skill_name;`, [user_id]
     );
 
-    return {
-      teaching: teachingQuery.rows.map((row) => new Skill(row)),
-      learning: learningQuery.rows.map((row) => new Skill(row)),
-    };
+
+    if(response.rows.length === 0) {
+      throw Error("No skills information available.");
+    }
+
+    return response.rows;
   }
+
 }
 
 module.exports = {
