@@ -7,6 +7,7 @@ CREATE TABLE dim_user (
     last_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL,
     postcode VARCHAR(10) NOT NULL,
     image_url VARCHAR(255),
     PRIMARY KEY (user_id)
@@ -107,17 +108,24 @@ CREATE TABLE messages(
 );
 
 -- Insert into users
-INSERT INTO dim_user (first_name, last_name, email, password, postcode, image_url) VALUES
-('Alice', 'Johnson', 'alice@example.com', 'pass123', 'NW1 5DB', 'http://example.com/alice.jpg'),
-('Bob', 'Smith', 'bob@example.com', 'pass456', 'N1 2AB', 'http://example.com/bob.jpg'),
-('Carol', 'White', 'carol@example.com', 'pass789', 'E8 3DL', 'http://example.com/carol.jpg'),
-('David', 'Lee', 'david@example.com', 'pass321', 'SE10 9NF', 'http://example.com/david.jpg'),
-('Eva', 'Green', 'eva@example.com', 'pass654', 'W8 7NX', 'http://example.com/eva.jpg'),
-('Frank', 'Moore', 'frank@example.com', 'pass987', 'TW9 1PX', 'http://example.com/frank.jpg'),
-('Grace', 'Kim', 'grace@example.com', 'pass147', 'W6 0AA', 'http://example.com/grace.jpg'),
-('Hank', 'Miller', 'hank@example.com', 'pass258', 'SW18 2PU', 'http://example.com/hank.jpg'),
-('Ivy', 'Brown', 'ivy@example.com', 'pass369', 'SE1 7PB', 'http://example.com/ivy.jpg'),
-('Jack', 'Wilson', 'jack@example.com', 'pass159', 'E1 6AN', 'http://example.com/jack.jpg');
+INSERT INTO dim_user (first_name, last_name, email, password, city, postcode, image_url) VALUES
+('Alice', 'Johnson', 'alice@example.com', 'pass123', 'Birmingham City Centre','B1 1TB', 'http://example.com/alice.jpg'),
+('Bob', 'Smith', 'bob@example.com', 'pass456','Moseley','B13 9PQ', 'http://example.com/bob.jpg'),
+('Carol', 'White', 'carol@example.com', 'pass789','Harborne','B17 9JT', 'http://example.com/carol.jpg'),
+('David', 'Lee', 'david@example.com', 'pass321','Selly Oak','B29 6SN', 'http://example.com/david.jpg'),
+('Eva', 'Green', 'eva@example.com', 'pass654', 'Erdington','B23 7AE', 'http://example.com/eva.jpg'),
+
+('Frank', 'Moore', 'frank@example.com', 'pass987', 'Shoreditch (East London)', 'E1 6AN', 'http://example.com/frank.jpg'),
+('Grace', 'Kim', 'grace@example.com', 'pass147', 'Westminster (includes Buckingham Palace)', 'SW1A 1AA', 'http://example.com/grace.jpg'),
+('Hank', 'Miller', 'hank@example.com', 'pass258', 'Camden Town', 'NW1 5DB', 'http://example.com/hank.jpg'),
+('Ivy', 'Brown', 'ivy@example.com', 'pass369', 'Notting Hill', 'W11 2BQ', 'http://example.com/ivy.jpg'),
+('Jack', 'Wilson', 'jack@example.com', 'pass159', 'Waterloo / South Bank area', 'SE1 7PB', 'http://example.com/jack.jpg'),
+
+('Amelia', 'Jones', 'amelia.jones@example.com', 'hashedpassword123', 'Manchester', 'M1 2BG', 'https://example.com/images/amelia.jpg'),
+('Liam', 'Taylor', 'liam.taylor@example.com', 'hashedpassword456', 'Manchester', 'M15 6BH', 'https://example.com/images/liam.jpg'),
+('Chloe', 'Smith', 'chloe.smith@example.com', 'hashedpassword789', 'Manchester', 'M20 3YA', 'https://example.com/images/chloe.jpg'),
+('Noah', 'Wilson', 'noah.wilson@example.com', 'hashedpassword321', 'Manchester', 'M4 5JW', 'https://example.com/images/noah.jpg'),
+('Emily', 'Brown', 'emily.brown@example.com', 'hashedpassword654', 'Manchester', 'M13 9PL', 'https://example.com/images/emily.jpg');
 
 -- Insert into skills
 INSERT INTO dim_skill (skill_name, skill_desc) VALUES
