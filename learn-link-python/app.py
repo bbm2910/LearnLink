@@ -27,7 +27,7 @@ def generate_current_skills_visualisation():
     # Ubong Workings
     plt.figure(figsize=(8, 4))
     sns.set_style("white")
-    sns.barplot(x=sessions, y=skills, palette='Blues_d')
+    sns.barplot(y=skills, x=sessions, palette='Blues_d')
     plt.title("Skills You're Currently Learning")
     plt.xlabel("Number of Sessions")
     plt.ylabel("Skill")
