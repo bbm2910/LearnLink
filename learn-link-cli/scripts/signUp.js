@@ -28,9 +28,10 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     const data = await response.json();
 
     if (response.status === 201) {
+      localStorage.setItem("token", data.token);
       window.location.assign("signIn.html");
     } else {
-      // Show error message
+      // Show an error message - I used it for debug
       alert(data.error || "Registration failed. Please try again.");
     }
   } catch (error) {
