@@ -107,6 +107,19 @@ CREATE TABLE messages(
     FOREIGN KEY (recipient_id) REFERENCES dim_user(user_id)
 );
 
+CREATE TABLE appointments (
+    id INT GENERATED ALWAYS AS IDENTITY,
+    requester_id INT, 
+    receiver_id INT, 
+    start_time TIMESTAMP NOT NULL, 
+    duration INTEGER NOT NULL, 
+    status TEXT CHECK(status IN('pending', 'accepted', 'rejected')) DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT NOW(),
+    PRIMARY KEY (id),
+    FOREIGN KEY requester_id REFERENCES dim_user(user_id),
+    FOREIGN KEY recipient_id REFERENCES dim_user(user_id)
+);
+
 -- Insert into users
 INSERT INTO dim_user (first_name, last_name, email, password, city, postcode, image_url) VALUES
 ('Alice', 'Johnson', 'alice@example.com', 'pass123', 'Birmingham City Centre','B1 1TB', 'http://example.com/alice.jpg'),

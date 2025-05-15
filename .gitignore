@@ -45,3 +45,5 @@ Desktop.ini
 
 # Ansible
 *.retry
+
+package-lock.json

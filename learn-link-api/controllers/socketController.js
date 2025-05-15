@@ -57,7 +57,7 @@ function handleSocketEvents(io, socket) {
     // Get chat history
     socket.on("get_chat_history_by_email", async ({ email }) => {
         try {
-            const recipient = await User.getOneUserByEmail(email);
+            const recipient = await User.getOneByEmail(email);
             if (!recipient) {
                 socket.emit("error", { message: "Recipient not found" });
                 return;
