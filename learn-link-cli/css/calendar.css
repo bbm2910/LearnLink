@@ -1,0 +1,31 @@
+:root {
+  --fc-button-text-color: #fff;
+
+  --fc-button-bg-color: #14bf96;
+  --fc-button-border-color: #14bf96;
+  --fc-button-hover-bg-color: #f46a37;
+
+  --fc-button-active-bg-color: #f46a37;
+  --fc-button-active-border-color: #f46a37;
+}
+#calendar {
+  max-width: 800px;
+  height: 600px;
+  margin: 0 auto;
+  font-size: 0.9em;
+}
+.add-event {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 2% auto;
+}
+.add-event-p {
+  font-size: 0.7rem;
+  width: 100%;
+  color: var(--blue);
+}
+.offcanvas-body button {
+  margin-top: 20%;
+  margin-left: 35%;
+}

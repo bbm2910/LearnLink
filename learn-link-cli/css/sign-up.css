@@ -1,0 +1,13 @@
+.main-sign-up {
+  padding: 5%;
+  width: 40%;
+  margin: 0 auto;
+}
+h1 {
+  font-weight: 700;
+  margin-bottom: 5%;
+  color: var(--green);
+}
+.t-and-c {
+  color: var(--blue);
+}

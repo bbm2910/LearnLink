@@ -1,0 +1,34 @@
+:root {
+  --blue: #1865f2;
+  --green: #14bf96;
+  --light-blue: #ecf2fd;
+  --light-gray: #f5f5f5;
+  --dark-gray: #21242c;
+  --white: #ffffff;
+  --orange: #f46a37;
+}
+.main-dashboard {
+  padding-top: 92px;
+}
+.main-dashboard form {
+  margin: 1% auto 3%;
+  width: 30%;
+}
+.offcanvas-body button {
+  margin-top: 20%;
+  margin-left: 35%;
+}
+.badge {
+  background-color: var(--orange);
+  color: var(--light-gray);
+}
+.card-title {
+  margin-bottom: 3%;
+}
+.list-group li {
+  background-color: var(--light-blue);
+  font-size: 0.9rem;
+}
+.list-group li:hover {
+  background-color: var(--white);
+}
