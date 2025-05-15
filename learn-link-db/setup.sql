@@ -129,23 +129,23 @@ INSERT INTO dim_user (first_name, last_name, email, password, city, postcode, im
 
 -- Insert into skills
 INSERT INTO dim_skill (skill_name, skill_desc) VALUES
-('Python', 'Programming language'),
-('Data Science', 'Data analysis and machine learning'),
-('Public Speaking', 'Presenting to an audience'),
-('Photography', 'Art of taking and editing photos'),
-('Guitar', 'Playing acoustic and electric guitar'),
-('JavaScript', 'Frontend web programming language'),
-('SQL', 'Structured Query Language for databases'),
-('Cooking', 'Preparing meals and culinary techniques'),
-('Yoga', 'Physical and mental wellness practice'),
-('French', 'Language: French speaking and writing');
+('Music', 'Guitar Playing - Ability to perform rhythm and lead guitar parts on acoustic or electric guitar.'),
+('Music', 'Piano Proficiency - Skilled in playing classical and contemporary pieces on the piano.'),
+('Music', 'Drumming Technique - Expertise in percussion and drumming using a standard drum kit.'),
+('Music', 'Violin Performance - Trained in playing solo and ensemble pieces with the violin.'),
+('Music', 'Saxophone Improvisation - Capable of performing jazz and blues improvisations on the saxophone.'),
 
-('Guitar', 'Playing acoustic and electric guitar'),
-('JavaScript', 'Frontend web programming language'),
-('SQL', 'Structured Query Language for databases'),
-('Cooking', 'Preparing meals and culinary techniques'),
-('Yoga', 'Physical and mental wellness practice'),
-('French', 'Language: French speaking and writing');
+('Programming', 'Proficient JavaScript - building web applications.'),
+('Programming', 'Experienced Python - data analysis and scripting.'),
+('Programming', 'Java - developing enterprise-level software .'),
+('Programming', 'Capable C++ - building efficient system-level code.'),
+('Programming', 'Knowledgeable Haskell - functional programming.'),
+
+('Cooking', 'Baking Techniques - Skilled in preparing breads, pastries, and cakes using precise baking methods.'),
+('Cooking', 'Knife Skills - Proficient in professional knife handling, including slicing, dicing, and julienning.'),
+('Cooking', 'Sauce Preparation - Experienced in making classic sauces such as béchamel, hollandaise, and demi-glace.'),
+('Cooking', 'Grilling Mastery - Capable of grilling meats, vegetables, and seafood to optimal doneness and flavor.'),
+('Cooking', 'International Cuisine - Knowledgeable in preparing dishes from various global cuisines including Thai, Italian, and Indian.');
 
 
 -- Insert into time
