@@ -1,10 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("http://localhost:3000/api/users/top-users")
+  fetch("http://localhost:3000/users/top-users")
     .then((response) => response.json())
     .then((users) => {
       const userList = document.getElementById("user-list");
-
-      // Limit to max 5 users?! Decide on this later
       const topFiveUsers = users.slice(0, 5);
 
       topFiveUsers.forEach((user) => {
@@ -16,7 +14,14 @@ document.addEventListener("DOMContentLoaded", () => {
           "align-items-center"
         );
 
-        li.textContent = `${user.first_name} ${user.last_name}`;
+        // Create link inside list item
+        const link = document.createElement("a");
+        link.href = `my-profile.html?userId=${user.id}`; // or your profile page path
+        link.textContent = `${user.first_name} ${user.last_name}`;
+        link.style.textDecoration = "none";
+        link.style.color = "inherit"; // keep default text color
+
+        li.appendChild(link);
 
         const badge = document.createElement("span");
         badge.classList.add("badge", "rounded-pill");
