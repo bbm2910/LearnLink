@@ -27,11 +27,11 @@ class User {
       [first_name, last_name, email, password, postcode, image_url]
     );
     const newId = response.rows[0].user_id;
-    const newUser = await User.getOneById(newId);
+    const newUser = await User.getUserById(newId);
     return newUser;
   }
 
-  static getOneById = async (user_id) => {
+  static getUserById = async (user_id) => {
     const response = await db.query(
       "SELECT * FROM dim_user WHERE user_id = $1;",
       [user_id]
@@ -52,7 +52,33 @@ class User {
     }
     return new User(response.rows[0]);
   };
+  // Get the top users to display ont he dashboard
+  static getTopUsers = async (limit = 10) => {
+    const response = await db.query(
+      `
+      SELECT 
+        u.user_id,
+        u.first_name,
+        u.last_name,
+        u.image_url,
+        COUNT(fs.teacher_id) AS sessions_taught
+      FROM dim_user u
+      LEFT JOIN facts_session fs ON u.user_id = fs.teacher_id
+      GROUP BY u.user_id
+      ORDER BY sessions_taught DESC
+      LIMIT $1;
+      `,
+      [limit]
+    );
 
+    return response.rows.map((row) => ({
+      user_id: row.user_id,
+      first_name: row.first_name,
+      last_name: row.last_name,
+      image_url: row.image_url,
+      sessions_taught: parseInt(row.sessions_taught, 10),
+    }));
+  };
   // TODO?: Add update user details methods - Decide which details can be updated.
 }
 

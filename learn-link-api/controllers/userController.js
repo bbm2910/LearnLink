@@ -56,8 +56,8 @@ async function userLogin(req, res) {
           token: token,
           user: {
             id: user.user_id,
-            email: user.email
-          }
+            email: user.email,
+          },
         });
       };
 
@@ -79,7 +79,7 @@ async function getProfile(req, res) {
   try {
     const userId = req.user.user_id;
 
-    const user = await User.getOneById(userId);
+    const user = await User.getUserById(userId);
     if (!user) {
       return res.status(404).json({ error: "User not found." });
     }
@@ -96,8 +96,50 @@ async function getProfile(req, res) {
   }
 }
 
+async function getTopUsers(req, res) {
+  try {
+    const users = await User.getTopUsers();
+    res.status(200).json(users);
+  } catch (err) {
+    console.error("Error fetching top users:", err);
+    res.status(500).json({ error: "Failed to fetch top users." });
+  }
+}
+
+async function getUserById(req, res) {
+  try {
+    const { userId } = req.params; // Extract userId from the request parameters
+    const user = await User.getUserById(userId); // Assuming you have a method to fetch a user by ID
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found." });
+    }
+
+    res.status(200).json({
+      id: user.user_id,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      postcode: user.postcode,
+      profession: user.profession || "N/A",
+      location: user.location || "N/A",
+      website: user.website || "N/A",
+      github: user.github || "N/A",
+      twitter: user.twitter || "N/A",
+      instagram: user.instagram || "N/A",
+      facebook: user.facebook || "N/A",
+    });
+  } catch (err) {
+    console.error("Error fetching user by ID:", err);
+    res.status(500).json({ error: "Failed to fetch user details." });
+  }
+  console.log("Received userId:", req.params.userId);
+}
+
 module.exports = {
   register,
   userLogin,
   getProfile,
+  getTopUsers,
+  getUserById,
 };

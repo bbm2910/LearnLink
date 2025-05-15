@@ -1,5 +1,5 @@
 #messageContainer {
-    padding-top: 12px;
+  padding-top: 12px;
   padding-bottom: 12px;
   display: flex;
   flex-direction: column;
@@ -38,4 +38,16 @@
   color: black;
   align-self: flex-start;
   border-bottom-left-radius: 4px;
+}
+
+.site-footer {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 0;
+}
+.site-footer span {
+  color: var(--blue);
 }
