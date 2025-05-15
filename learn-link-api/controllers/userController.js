@@ -56,8 +56,8 @@ async function userLogin(req, res) {
           token: token,
           user: {
             id: user.user_id,
-            email: user.email
-          }
+            email: user.email,
+          },
         });
       };
 
@@ -96,8 +96,19 @@ async function getProfile(req, res) {
   }
 }
 
+async function getTopUsers(req, res) {
+  try {
+    const users = await User.getTopUsers();
+    res.status(200).json(users);
+  } catch (err) {
+    console.error("Error fetching top users:", err);
+    res.status(500).json({ error: "Failed to fetch top users." });
+  }
+}
+
 module.exports = {
   register,
   userLogin,
   getProfile,
+  getTopUsers,
 };
