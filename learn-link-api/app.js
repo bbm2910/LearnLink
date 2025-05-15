@@ -11,6 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(logger);
+app.use("/api/users", userRouter);
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to Learn Link!");

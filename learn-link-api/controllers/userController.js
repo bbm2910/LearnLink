@@ -9,7 +9,25 @@ async function register(req, res) {
     const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
     data["password"] = await bcrypt.hash(data.password, salt);
     const result = await User.create(data);
-    res.status(201).send(result);
+
+    // Create token after user is created
+    const payload = {
+      user_id: result.user_id,
+      email: result.email,
+    };
+
+    jwt.sign(
+      payload,
+      process.env.SECRET_TOKEN,
+      { expiresIn: 3600 },
+      (err, token) => {
+        if (err) {
+          return res.status(500).json({ error: "Token generation failed" });
+        }
+
+        res.status(201).json({ token: token });
+      }
+    );
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -18,7 +36,7 @@ async function register(req, res) {
 async function userLogin(req, res) {
   const data = req.body;
   try {
-    const user = await User.getOneUserByEmail(data.email);
+    const user = await User.getOneByEmail(data.email);
     if (!user) {
       throw new Error("No user with this email");
     }
@@ -57,7 +75,29 @@ async function userLogin(req, res) {
   }
 }
 
+async function getProfile(req, res) {
+  try {
+    const userId = req.user.user_id;
+
+    const user = await User.getOneById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found." });
+    }
+
+    res.status(200).json({
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      postcode: user.postcode,
+    });
+  } catch (err) {
+    console.error("Error getting profile:", err);
+    res.status(500).json({ error: "Failed to get user profile." });
+  }
+}
+
 module.exports = {
   register,
   userLogin,
+  getProfile,
 };

@@ -1,19 +1,18 @@
 const jwt = require("jsonwebtoken");
 
 function authenticator(req, res, next) {
-  const token = req.headers["authorization"];
-  console.log("Token: ", token);
+  const token = req.header("Authorization")?.replace("Bearer ", "");
 
-  if (token) {
-    jwt.verify(token, process.env.SECRET_TOKEN, async (err, data) => {
-      if (err) {
-        res.status(403).json({ err: "Invalid token" });
-      } else {
-        next();
-      }
-    });
-  } else {
-    res.status(403).json({ err: "Missing token" });
+  if (!token) {
+    return res.status(403).json({ error: "Access denied. No token provided." });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET_TOKEN);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(403).json({ error: "Invalid or expired token" });
   }
 }
 

@@ -42,7 +42,7 @@ class User {
     return new User(response.rows[0]);
   };
 
-  static getOneUserByEmail = async (email) => {
+  static getOneByEmail = async (email) => {
     const response = await db.query(
       "SELECT * FROM dim_user WHERE email = $1;",
       [email]
