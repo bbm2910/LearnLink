@@ -16,10 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Create link inside list item
         const link = document.createElement("a");
-        link.href = `my-profile.html?userId=${user.id}`; // or your profile page path
+        link.href = `user-profile.html?userId=${user.user_id}`;
         link.textContent = `${user.first_name} ${user.last_name}`;
         link.style.textDecoration = "none";
-        link.style.color = "inherit"; // keep default text color
+        // link.style.color = "inherit";
 
         li.appendChild(link);
 

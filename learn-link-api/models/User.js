@@ -27,11 +27,11 @@ class User {
       [first_name, last_name, email, password, postcode, image_url]
     );
     const newId = response.rows[0].user_id;
-    const newUser = await User.getOneById(newId);
+    const newUser = await User.getUserById(newId);
     return newUser;
   }
 
-  static getOneById = async (user_id) => {
+  static getUserById = async (user_id) => {
     const response = await db.query(
       "SELECT * FROM dim_user WHERE user_id = $1;",
       [user_id]

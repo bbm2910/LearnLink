@@ -10,6 +10,7 @@ userRouter.post("/login", userController.userLogin);
 
 userRouter.get("/profile", authenticator, userController.getProfile);
 userRouter.get("/top-users", userController.getTopUsers);
+userRouter.get("/:userId", userController.getUserById);
 
 module.exports = {
   userRouter,
