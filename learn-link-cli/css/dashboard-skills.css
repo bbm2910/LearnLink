@@ -22,3 +22,13 @@
   background-color: var(--orange);
   color: var(--light-gray);
 }
+.card-title {
+  margin-bottom: 3%;
+}
+.list-group li {
+  background-color: var(--light-blue);
+  font-size: 0.9rem;
+}
+.list-group li:hover {
+  background-color: var(--white);
+}
