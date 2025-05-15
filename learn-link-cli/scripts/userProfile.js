@@ -17,9 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
           ".card-body h4"
         ).textContent = `${user.first_name} ${user.last_name}`;
         document.querySelector(".text-secondary.mb-1").textContent =
-          user.profession || "N/A";
+          user.email || "N/A"; // Display email
         document.querySelector(".text-muted.font-size-sm").textContent =
-          user.location || "N/A";
+          user.postcode || "N/A"; // Display postcode
         document.querySelector(
           ".list-group-item:nth-child(1) .text-secondary"
         ).textContent = user.website || "N/A";
