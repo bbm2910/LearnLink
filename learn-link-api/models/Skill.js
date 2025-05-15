@@ -76,7 +76,7 @@ class Skill {
     };
   }
 
-    // For "Top Skills" pie chart visualisation
+  // For "Top Skills" pie chart visualisation
   static getTopSkillsInfo = async () => {
     const response = await db.query(
       // Return top 5 skills being learned
@@ -102,6 +102,8 @@ class Skill {
     const response = await db.query(
         `SELECT
         du.user_id,
+        du.first_name,
+        du.last_name,
         ds.skill_name,
         COUNT(fs.skill_id) AS number_of_sessions
         FROM
