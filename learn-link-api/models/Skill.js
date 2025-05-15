@@ -76,7 +76,7 @@ class Skill {
     };
   }
 
-    // For "Top Skills" pie chart visualisation
+  // For "Top Skills" pie chart visualisation
   static getTopSkillsInfo = async () => {
     const response = await db.query(
       // Return top 5 skills being learned
@@ -93,7 +93,6 @@ class Skill {
     if(response.rows.length === 0) {
       throw Error("No skills information available.");
     }
-
     return response.rows;
   }
 
@@ -124,6 +123,7 @@ class Skill {
     }
     return response.rows;
   }
+
 }
 
 module.exports = {
