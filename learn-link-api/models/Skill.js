@@ -91,6 +91,7 @@ class Skill {
     if(response.rows.length === 0) {
       throw Error("No skills information available.");
     }
+
     return response.rows;
   }
 
