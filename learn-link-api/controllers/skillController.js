@@ -43,11 +43,10 @@ const skillController = {
     } catch (err) {
       console.error("Error fetching user skills:", err);
       res.status(500).json({ error: "Failed to fetch user skills" });
-    }
+    }//,
   },
-};
 
-const currentSkillsInfo = async (req, res) => {
+  currentSkillsInfo: async (req, res) => {
     try {
         // Retrieve data for visualisation from database
         const skillsData = await Skill.getCurrentSkillsInfo(3);
@@ -65,13 +64,13 @@ const currentSkillsInfo = async (req, res) => {
         res.status(200).json({
             success: true,
             visualisation: response.data
-        });
+      });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-}
+  },
 
-const topSkillsInfo = async (req, res) => {
+  topSkillsInfo: async (req, res) => {
     try {
         // Retrieve data for visualisation from database
         const skillsData = await Skill.getTopSkillsInfo();
@@ -84,17 +83,14 @@ const topSkillsInfo = async (req, res) => {
 
         // Return JSON response
         res.status(200).json({
-            success: true,
-            visualisation: response.data
-        });
+          success: true,
+          visualisation: response.data
+      });
 
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-}
-
-module.exports = {
-  skillController,
-  currentSkillsInfo,
-  topSkillsInfo
+  }
 };
+
+module.exports = skillController
