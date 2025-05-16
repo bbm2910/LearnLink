@@ -16,6 +16,7 @@ CREATE TABLE dim_user (
 -- Dimension Table: Skill
 CREATE TABLE dim_skill (
     skill_id INT GENERATED ALWAYS AS IDENTITY,
+    skill_cat VARCHAR(255) NOT NULL,
     skill_name VARCHAR(255) NOT NULL,
     skill_desc VARCHAR(255) NOT NULL,
     PRIMARY KEY (skill_id)
@@ -136,23 +137,23 @@ INSERT INTO dim_user (first_name, last_name, email, password, city, postcode, im
 -- Insert skills
 INSERT INTO dim_skill (skill_name, skill_desc) VALUES
 -- Music
-('Guitar Playing', 'Ability to perform rhythm and lead guitar parts on acoustic or electric guitar.'),
-('Piano Proficiency', 'Skilled in playing classical and contemporary pieces on the piano.'),
-('Drumming Technique', 'Expertise in percussion and drumming using a standard drum kit.'),
-('Violin Performance', 'Trained in playing solo and ensemble pieces with the violin.'),
-('Saxophone Improvisation', 'Capable of performing jazz and blues improvisations on the saxophone.'),
+('Music', 'Guitar Playing', 'Ability to perform rhythm and lead guitar parts on acoustic or electric guitar.'),
+('Music', 'Piano Proficiency', 'Skilled in playing classical and contemporary pieces on the piano.'),
+('Music', 'Drumming Technique', 'Expertise in percussion and drumming using a standard drum kit.'),
+('Music', 'Violin Performance', 'Trained in playing solo and ensemble pieces with the violin.'),
+('Music', 'Saxophone Improvisation', 'Capable of performing jazz and blues improvisations on the saxophone.'),
 -- Programming
-('Proficient JavaScript', 'Building web applications.'),
-('Experienced Python', 'Data analysis and scripting.'),
-('Java', 'Developing enterprise-level software.'),
-('Capable C++', 'Building efficient system-level code.'),
-('Knowledgeable Haskell', 'Functional programming.'),
+('Programming', 'Proficient JavaScript', 'Building web applications.'),
+('Programming', 'Experienced Python', 'Data analysis and scripting.'),
+('Programming', 'Java', 'Developing enterprise-level software.'),
+('Programming', 'Capable C++', 'Building efficient system-level code.'),
+('Programming', 'Knowledgeable Haskell', 'Functional programming.'),
 -- Cooking
-('Baking Techniques', 'Skilled in preparing breads, pastries, and cakes using precise baking methods.'),
-('Knife Skills', 'Proficient in professional knife handling, including slicing, dicing, and julienning.'),
-('Sauce Preparation', 'Experienced in making classic sauces such as béchamel, hollandaise, and demi-glace.'),
-('Grilling Mastery', 'Capable of grilling meats, vegetables, and seafood to optimal doneness and flavor.'),
-('International Cuisine', 'Knowledgeable in preparing dishes from various global cuisines including Thai, Italian, and Indian.');
+('Cooking', 'Baking Techniques', 'Skilled in preparing breads, pastries, and cakes using precise baking methods.'),
+('Cooking', 'Knife Skills', 'Proficient in professional knife handling, including slicing, dicing, and julienning.'),
+('Cooking', 'Sauce Preparation', 'Experienced in making classic sauces such as béchamel, hollandaise, and demi-glace.'),
+('Cooking', 'Grilling Mastery', 'Capable of grilling meats, vegetables, and seafood to optimal doneness and flavor.'),
+('Cooking', 'International Cuisine', 'Knowledgeable in preparing dishes from various global cuisines including Thai, Italian, and Indian.');
 
 -- Insert into time
 INSERT INTO dim_time (action_date, year, month, day, hour, minute, second) VALUES
