@@ -129,5 +129,5 @@ class Skill {
 }
 
 module.exports = {
-  Skill,
+  Skill
 };

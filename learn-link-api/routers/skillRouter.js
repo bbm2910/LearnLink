@@ -10,9 +10,9 @@ skillRouter.post("/", skillController.createSkill);
 skillRouter.get("/:id", skillController.getSkillById);
 skillRouter.get("/", skillController.searchSkills);
 
-skillRouter.get("/current", skillController.currentSkillsInfo);
+skillRouter.get("/current/:userId", skillController.currentUserSkillsInfo);
 skillRouter.get("/trending", skillController.topSkillsInfo);
 
 module.exports = {
-  skillRouter,
+  skillRouter
 };
