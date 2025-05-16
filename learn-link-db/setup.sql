@@ -8,7 +8,7 @@ CREATE TABLE dim_user (
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     city VARCHAR(255) NOT NULL,
-    postcode VARCHAR(10) NOT NULL,
+    postcode VARCHAR(255) NOT NULL,
     image_url VARCHAR(255),
     PRIMARY KEY (user_id)
 );
