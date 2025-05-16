@@ -18,7 +18,7 @@ def generate_current_skills_visualisation():
     data = request.json
 
     skills = data.get('skills', []) # array of skill names
-    sessions = data.get('sessions', []) # array of int value of no. of sessions
+    sessions = data.get('learning_sessions', []) # array of int value of no. of sessions
 
     # Data validation
     if not skills or not sessions or len(skills) != len(sessions):
