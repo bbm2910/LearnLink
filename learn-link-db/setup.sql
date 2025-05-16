@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS dim_user, dim_skill, dim_time, facts_learning, facts_session, facts_teaching, messages, chat_rooms;
+DROP TABLE IF EXISTS appointments, messages, chat_rooms, dim_user, dim_skill, dim_time, facts_learning, facts_session, facts_teaching;
 
 -- Dimension Table: User
 CREATE TABLE dim_user (
@@ -113,12 +113,13 @@ CREATE TABLE appointments (
     status TEXT CHECK(status IN('pending', 'accepted', 'rejected')) DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (id),
-    FOREIGN KEY recipient_id REFERENCES dim_user(user_id)
+    FOREIGN KEY (requester_id) REFERENCES dim_user(user_id),
+    FOREIGN KEY (receiver_id) REFERENCES dim_user(user_id)
 );
 
 -- Insert into users
 INSERT INTO dim_user (first_name, last_name, email, password, postcode, image_url) VALUES
-('Alice', 'Johnson', 'alice@example.com', 'pass123', 'Birmingham City Centre' 'http://example.com/alice.jpg'),
+('Alice', 'Johnson', 'alice@example.com', 'pass123', 'Birmingham City Centre', 'http://example.com/alice.jpg'),
 ('Bob', 'Smith', 'bob@example.com', 'pass456', 'Moseley', 'http://example.com/bob.jpg'),
 ('Carol', 'White', 'carol@example.com', 'pass789', 'Harborne', 'http://example.com/carol.jpg'),
 ('David', 'Lee', 'david@example.com', 'pass321', 'Selly Oak', 'http://example.com/david.jpg'),
@@ -135,7 +136,7 @@ INSERT INTO dim_user (first_name, last_name, email, password, postcode, image_ur
 ('Emily', 'Brown', 'emily.brown@example.com', 'hashedpassword654', 'Manchester', 'https://example.com/images/emily.jpg');
 
 -- Insert skills
-INSERT INTO dim_skill (skill_name, skill_desc) VALUES
+INSERT INTO dim_skill (skill_cat, skill_name, skill_desc) VALUES
 -- Music
 ('Music', 'Guitar Playing', 'Ability to perform rhythm and lead guitar parts on acoustic or electric guitar.'),
 ('Music', 'Piano Proficiency', 'Skilled in playing classical and contemporary pieces on the piano.'),
