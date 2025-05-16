@@ -46,19 +46,16 @@ const skillController = {
     }//,
   },
 
-  currentSkillsInfo: async (req, res) => {
+  currentUserSkillsInfo: async (req, res) => {
     try {
         // Retrieve data for visualisation from database
-        const skillsData = await Skill.getCurrentSkillsInfo(3);
+        const skillsData = await Skill.getCurrentSkillsInfo(req.params.userId);
 
         // Format into separate arrays
         const formattedData = formatCurrentSkillsData(skillsData);
 
         // Send request to Python data API
         const response = await axios.post("http://localhost:3005/current-skills-chart", formattedData);
-
-        console.log("response.data currentSkillsInfo");
-        console.log(response.data);
 
         // Return JSON response
         res.status(200).json({

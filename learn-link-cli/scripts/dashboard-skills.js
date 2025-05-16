@@ -1,3 +1,4 @@
+const curentUserId = parseInt(localStorage.getItem("userId")) || 1;
 const barChartSection = document.getElementById("bar-chart");
 const pieChartSection = document.getElementById("pie-chart");
 
@@ -11,7 +12,7 @@ const renderCurrentUserSkillsChart = async () => {
       },
     };
 
-    const response = await fetch("http://localhost:3000/skills/current", options); // To-do: Change endpoint to "/api/skills/current" in app.js
+    const response = await fetch(`http://localhost:3000/skills/current/${curentUserId}`, options); // To-do: Change endpoint to "/api/skills/current" in app.js
     const responseData = await response.json();
 
     if (responseData.success) {
