@@ -67,8 +67,6 @@ class Skill {
     const response = await db.query(
         `SELECT
         du.user_id,
-        du.first_name,
-        du.last_name,
         ds.skill_name,
         COUNT(fs.skill_id) AS number_of_sessions
         FROM
@@ -80,7 +78,7 @@ class Skill {
         WHERE
             du.user_id = $1
         GROUP BY
-            du.user_id, du.first_name, du.last_name, ds.skill_name
+            du.user_id, ds.skill_name
         ORDER BY
             ds.skill_name;`, [user_id]
     );
