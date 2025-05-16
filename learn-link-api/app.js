@@ -10,6 +10,7 @@ const { skillsRouter } = require('./routers/skillsRouter');
 const { skillRouter } = require("./routers/skillRouter");
 const { skillsRouter } = require('./routers/skillsRouter');
 const { skillRouter } = require("./routers/skillRouter");
+const { skillsRouter } = require('./routers/skillsRouter');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use("/skills", skillsRouter); // Clash with "skillRouter" using /api/skills 
 app.use("/skills", skillRouter);
 app.use("/skills", skillsRouter); // Clash with "skillRouter" using /api/skills endpoint
 app.use("/skills", skillRouter);
+app.use("/skills", skillsRouter); // Clash with "skillRouter" using /api/skills endpoint
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to Learn Link!");
