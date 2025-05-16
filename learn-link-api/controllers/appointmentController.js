@@ -4,7 +4,7 @@ async function createAppointment(req, res) {
     try {
         const {receiverId, startTime, duration} = req.body
         const requesterId = req.user.id
-
+        console.log('JWT Token UserID: ', requesterId);
         const appointment = await Appointment.createAppointment({
             requesterId,
             receiverId,
@@ -45,7 +45,7 @@ async function getAppointments(req, res){
 async function getPendingAppointments(req, res) {
     try {
         const userId = req.user.id
-        const pendingAppointments = await Appointment.getPendingAppoinments(userId)
+        const pendingAppointments = await Appointment.getPendingAppointments(userId)
         res.json(pendingAppointments)
     } catch(error) {
         res.status(500).json({error: 'Failed to fetch pending appointments'})

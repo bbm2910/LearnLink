@@ -2,11 +2,12 @@ import { Calendar } from "https://cdn.skypack.dev/@fullcalendar/core@6.1.17";
 import dayGridPlugin from "https://cdn.skypack.dev/@fullcalendar/daygrid@6.1.17";
 
 // Replace with your actual API base URL if needed
-const API_BASE = "/api/appointments";
-const USER_API = "/api/users";
+const API_BASE = "http://localhost:3000/api/appointments";
+const USER_API = "http://localhost:3000/api/users";
 
 // Assume JWT is stored in localStorage after login
 const token = localStorage.getItem("token");
+console.log(`JWT Token: ${token}`);
 
 // Calendar init
 document.addEventListener("DOMContentLoaded", async () => {
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   calendar.render();
+  await loadPendingRequests()
 
   // Load accepted appointments
   const appointments = await getAcceptedAppointments();
@@ -80,6 +82,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       alert(err.message);
     }
   });
+
+  
 });
 
 // Utility to get accepted appointments
@@ -95,14 +99,14 @@ async function getAcceptedAppointments() {
 
 // Utility to find user by email
 async function getUserByEmail(email) {
-  const res = await fetch(`${USER_API}/find?email=${encodeURIComponent(email)}`, {
+  const res = await fetch(`${USER_API}/by-email?email=${encodeURIComponent(email)}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
   if (!res.ok) return null;
-  return res.json();
+  return res.json()
 }
 
 // Compute end time for calendar event
@@ -111,3 +115,82 @@ function getEndTime(startTime, durationHours) {
   start.setHours(start.getHours() + parseInt(durationHours));
   return start.toISOString();
 }
+
+// Utility to fetch user details by ID
+async function fetchUserById(id) {
+  const res = await fetch(`http://localhost:3000/api/users/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) return null;
+  return res.json();
+}
+
+// Fetch and display pending requests
+async function loadPendingRequests() {
+  const res = await fetch(`${API_BASE}/pending`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    console.error("Failed to load pending appointments");
+    return;
+  }
+
+  const pending = await res.json();
+  const list = document.getElementById("pending-list");
+  list.innerHTML = "";
+
+  for (const appt of pending) {
+    const user = await fetchUserById(appt.requester_id);
+    const item = document.createElement("li");
+    item.className = "list-group-item d-flex justify-content-between align-items-center";
+
+    item.innerHTML = `
+      <span>
+        <strong>${user?.email || "Unknown user"}</strong><br/>
+        ${new Date(appt.start_time).toLocaleString()} for ${appt.duration}h
+      </span>
+      <div>
+        <button class="btn btn-success btn-sm me-2" data-id="${appt.id}" data-action="accept">Accept</button>
+        <button class="btn btn-danger btn-sm" data-id="${appt.id}" data-action="reject">Reject</button>
+      </div>
+    `;
+
+    list.appendChild(item);
+  }
+}
+
+// Event delegation for accept/reject buttons
+document.getElementById("pending-list").addEventListener("click", async (e) => {
+  if (e.target.tagName !== "BUTTON") return;
+  const action = e.target.dataset.action;
+  const id = e.target.dataset.id;
+
+  const res = await fetch(`${API_BASE}/respond`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ appointmentId: id, status: action === "accept" ? "accepted" : "rejected" }),
+  });
+
+  if (res.ok) {
+    alert(`Appointment ${action}ed.`);
+    await loadPendingRequests(); // Refresh pending list
+    const appointments = await getAcceptedAppointments();
+    appointments.forEach((appt) => {
+      calendar.addEvent({
+        title: "Appointment",
+        start: appt.start_time,
+        end: getEndTime(appt.start_time, appt.duration),
+      });
+    });
+  } else {
+    alert("Failed to update appointment.");
+  }
+});
