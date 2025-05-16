@@ -17,15 +17,15 @@ def index():
 def generate_current_skills_visualisation():
     data = request.json
 
-    skills = data.get('skills', []) # array of skill names
-    sessions = data.get('learning_sessions', []) # array of int value of no. of sessions
+    skills = data.get('skills', [])
+    sessions = data.get('learning_sessions', [])
 
     # Data validation
     if not skills or not sessions or len(skills) != len(sessions):
         return jsonify({'error': 'Invalid data received'}), 400
 
-    # Ubong Workings
-    plt.figure(figsize=(8, 4))
+    # Generate bar chart using matplotlib (static image)
+    plt.figure(figsize=(12, 6))
     sns.set_style("white")
     sns.barplot(y=skills, x=sessions, palette='Blues_d')
     plt.title("Skills You're Currently Learning")
@@ -39,8 +39,9 @@ def generate_current_skills_visualisation():
     plt.savefig(img_bytes, format='png')
     img_bytes.seek(0)
     img_base64 = base64.b64encode(img_bytes.getvalue()).decode('utf-8')
-    bar_chart_html = f'<img src="data:image/png;base64,{img_base64}" />'
+    plt.close()
 
+    bar_chart_html = f'<img src="data:image/png;base64,{img_base64}" />'
     return jsonify({'visualisation_html': bar_chart_html})
 
 
@@ -48,23 +49,23 @@ def generate_current_skills_visualisation():
 def generate_top_skills_visualisation():
     data = request.json
 
-    skills = data.get('skills', []) # array of skill names
-    learners = data.get('learners', []) # array of int value of no. of learners
+    skills = data.get('skills', [])
+    learners = data.get('learners', [])
 
     # Data validation
     if not skills or not learners or len(skills) != len(learners):
         return jsonify({'error': 'Invalid data received'}), 400
 
-    # Ubong Workings
-    plt.figure(figsize=(6, 6))
-    plt.pie(learners, labels=skills, autopct='%1.1f%%', startangle=140, colors=sns.color_palette("pastel"))
-    plt.title("Top Skills Learned by Users")
-    plt.tight_layout()
-    plt.show()
+    # Generate pie chart
+    fig, ax = plt.subplots()
+    colors = sns.color_palette("pastel", len(skills))
+    ax.pie(learners, labels=skills, autopct='%1.1f%%', startangle=140, colors=colors)
+    ax.set_title("Top Skills Learned by Users")
+    ax.axis('equal')
 
     # Generate image & HTML
     img_bytes = io.BytesIO()
-    plt.savefig(img_bytes, format='png')
+    plt.savefig(img_bytes, format='png', bbox_inches="tight")
     img_bytes.seek(0)
     img_base64 = base64.b64encode(img_bytes.getvalue()).decode('utf-8')
     pie_chart_html = f'<img src="data:image/png;base64,{img_base64}" />'

@@ -1,6 +1,6 @@
 const formatTopSkillsData = (dbQueryResult) => {
   const skillNames = dbQueryResult.map( (o) => o.skill_name);
-  const learnerCounts = dbQueryResult.map( (o) => o.number_of_learners);
+  const learnerCounts = dbQueryResult.map( (o) => parseInt(o.number_of_learners));
 
   return {
     skills: skillNames,
@@ -10,7 +10,7 @@ const formatTopSkillsData = (dbQueryResult) => {
 
 const formatCurrentSkillsData = (dbQueryResult) => {
   const skillNames = dbQueryResult.map( (o) => o.skill_name);
-  const learningSessionCounts = dbQueryResult.map( (o) => o.number_of_sessions);
+  const learningSessionCounts = dbQueryResult.map( (o) => parseInt(o.number_of_sessions));
 
   return {
     skills: skillNames,

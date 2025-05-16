@@ -94,15 +94,16 @@
 
     <main class="main-dashboard">
       <h1>Start your journey</h1>
-      <form class="d-flex" role="search">
+      <form class="d-flex mb-3" role="search" onsubmit="return false;">
         <input
+          type="text"
           class="form-control me-2"
-          type="search"
-          placeholder="Search skills..."
-          aria-label="Search"
+          id="searchInput"
+          placeholder="e.g., guitar, python"
         />
-        <button class="btn btn-outline-primary" type="submit">Search</button>
       </form>
+      <ul id="resultsList" class="list-group mb-4"></ul>
+      
 
       <div class="container text-center">
         <div class="row">
@@ -139,8 +140,9 @@
       crossorigin="anonymous"
     ></script>
     <script src="scripts/index.js" defer></script>
-    <script src="scripts/dashboard-skills.js"></script>
-    <script src="scripts/getTopUsers.js"></script>
-    <script src="scripts/logout.js"></script>
+    <script src="scripts/dashboard-skills.js" defer></script>
+    <script src="scripts/searchSkills.js" defer></script>
+    <script src="scripts/getTopUsers.js" defer></script>
+    <script src="scripts/logout.js" defer></script>
   </body>
 </html>
