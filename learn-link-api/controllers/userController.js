@@ -136,10 +136,25 @@ async function getUserById(req, res) {
   console.log("Received userId:", req.params.userId);
 }
 
+async function getUserByEmail(req, res){
+  try {
+    const { email } = req.params
+    const user = await User.getOneByEmail(email)
+    if (!user){
+      return res.status(404).json({ error: 'User not found'})
+    }
+    res.json({ id: user.user_id, email: user.email})
+  } catch(error){
+    res.status(500).json({ error: 'Failed to fetch email '})
+  }
+
+}
+
 module.exports = {
   register,
   userLogin,
   getProfile,
   getTopUsers,
   getUserById,
+  getUserByEmail,
 };

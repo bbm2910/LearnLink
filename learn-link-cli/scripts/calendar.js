@@ -1,214 +1,113 @@
-import { Calendar } from "@fullcalendar/core";
-import dayGridPlugin from "@fullcalendar/daygrid";
+import { Calendar } from "https://cdn.skypack.dev/@fullcalendar/core@6.1.17";
+import dayGridPlugin from "https://cdn.skypack.dev/@fullcalendar/daygrid@6.1.17";
 
-// Replace with your logged-in user ID or fetch from your auth system
-const YOUR_USER_ID = parseInt(localStorage.getItem("userId"), 10) || 1;
+// Replace with your actual API base URL if needed
+const API_BASE = "/api/appointments";
+const USER_API = "/api/users";
 
-document.addEventListener("DOMContentLoaded", () => {
+// Assume JWT is stored in localStorage after login
+const token = localStorage.getItem("token");
+
+// Calendar init
+document.addEventListener("DOMContentLoaded", async () => {
   const calendarEl = document.getElementById("calendar");
+
   const calendar = new Calendar(calendarEl, {
     plugins: [dayGridPlugin],
+    initialView: "dayGridMonth",
     headerToolbar: {
       left: "prev,next today",
       center: "title",
-      right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+      right: "dayGridMonth",
     },
-    initialView: "dayGridMonth",
-    height: "auto",
   });
 
   calendar.render();
 
-  async function fetchAppointments() {
-    try {
-      const token = localStorage.getItem("token");
-      const res = await fetch("/api/appointments", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (!res.ok) throw new Error("Failed to fetch appointments");
-      const appointments = await res.json();
+  // Load accepted appointments
+  const appointments = await getAcceptedAppointments();
+  appointments.forEach((appt) => {
+    calendar.addEvent({
+      title: "Appointment",
+      start: appt.start_time,
+      end: getEndTime(appt.start_time, appt.duration),
+    });
+  });
 
-      const events = appointments.map((appt) => ({
-        id: appt.id,
-        title:
-          appt.requesterId === YOUR_USER_ID
-            ? `Meeting with User ${appt.receiverId}`
-            : `Meeting with User ${appt.requesterId}`,
-        start: appt.startTime,
-        end: new Date(
-          new Date(appt.startTime).getTime() + appt.duration * 3600000
-        ).toISOString(),
-        allDay: false,
-      }));
-
-      calendar.removeAllEvents();
-      calendar.addEventSource(events);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  async function fetchUsers() {
-    try {
-      const token = localStorage.getItem("token");
-      const res = await fetch("/api/users", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (!res.ok) throw new Error("Failed to fetch users");
-      const users = await res.json();
-
-      const receiverSelect = document.getElementById("receiver-select");
-      receiverSelect.innerHTML =
-        '<option value="" disabled selected>Choose user</option>';
-
-      users.forEach((user) => {
-        if (user.id !== YOUR_USER_ID) {
-          const option = document.createElement("option");
-          option.value = user.id;
-          option.textContent = user.username || `User ${user.id}`;
-          receiverSelect.appendChild(option);
-        }
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  async function fetchPendingRequests() {
-    try {
-      const token = localStorage.getItem("token");
-      const res = await fetch("/api/appointments/pending", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (!res.ok) throw new Error("Failed to fetch pending requests");
-      const pending = await res.json();
-
-      const list = document.getElementById("pending-list");
-      list.innerHTML = "";
-
-      if (pending.length === 0) {
-        const li = document.createElement("li");
-        li.className = "list-group-item";
-        li.textContent = "No pending appointment requests.";
-        list.appendChild(li);
-        return;
-      }
-
-      pending.forEach((appt) => {
-        const li = document.createElement("li");
-        li.className =
-          "list-group-item d-flex justify-content-between align-items-center flex-wrap";
-
-        const infoDiv = document.createElement("div");
-        infoDiv.textContent = `From User ${appt.requesterId} on ${new Date(
-          appt.startTime
-        ).toLocaleString()}`;
-
-        const btnGroup = document.createElement("div");
-        btnGroup.className = "btn-group btn-group-sm";
-
-        const acceptBtn = document.createElement("button");
-        acceptBtn.className = "btn btn-success";
-        acceptBtn.textContent = "Accept";
-        acceptBtn.onclick = () => respondToAppointment(appt.id, "accepted");
-
-        const denyBtn = document.createElement("button");
-        denyBtn.className = "btn btn-danger";
-        denyBtn.textContent = "Deny";
-        denyBtn.onclick = () => respondToAppointment(appt.id, "denied");
-
-        btnGroup.appendChild(acceptBtn);
-        btnGroup.appendChild(denyBtn);
-
-        li.appendChild(infoDiv);
-        li.appendChild(btnGroup);
-        list.appendChild(li);
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  async function respondToAppointment(appointmentId, status) {
-    try {
-      const token = localStorage.getItem("token");
-      const res = await fetch("/api/appointments/respond", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ appointmentId, status }),
-      });
-      if (!res.ok) {
-        const err = await res.json();
-        alert("Error: " + (err.error || "Failed to update appointment"));
-        return;
-      }
-      alert(`Appointment ${status}`);
-      await fetchPendingRequests();
-      await fetchAppointments();
-    } catch (err) {
-      alert("Failed to update appointment");
-      console.error(err);
-    }
-  }
-
-  const appointmentModal = document.getElementById("appointmentModal");
-  appointmentModal.addEventListener("show.bs.modal", fetchUsers);
-
-  const appointmentForm = document.getElementById("appointment-form");
-  appointmentForm.addEventListener("submit", async (e) => {
+  // Handle appointment form submit
+  const form = document.getElementById("appointment-form");
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const receiverId = parseInt(
-      document.getElementById("receiver-select").value,
-      10
-    );
+    const email = document.getElementById("appointment-email").value;
     const date = document.getElementById("appointment-date").value;
     const time = document.getElementById("appointment-time").value;
-    const duration = parseInt(
-      document.getElementById("appointment-duration").value,
-      10
-    );
+    const duration = document.getElementById("appointment-duration").value;
 
-    if (!receiverId || !date || !time || !duration) {
-      alert("Please fill out all fields.");
+    if (!email || !date || !time || !duration) {
+      alert("Please fill in all fields.");
       return;
     }
 
-    const startTime = new Date(`${date}T${time}`).toISOString();
-
     try {
-      const token = localStorage.getItem("token");
-      const res = await fetch("/api/appointments", {
+      const receiver = await getUserByEmail(email);
+      if (!receiver) throw new Error("User not found.");
+
+      const startTime = `${date}T${time}`;
+
+      const response = await fetch(API_BASE, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ receiverId, startTime, duration }),
+        body: JSON.stringify({
+          receiverId: receiver.id,
+          startTime,
+          duration,
+        }),
       });
 
-      if (!res.ok) {
-        const err = await res.json();
-        alert("Error: " + (err.error || "Failed to send request"));
-        return;
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to create appointment.");
       }
 
       alert("Appointment request sent!");
-      appointmentForm.reset();
-      const modalInstance = bootstrap.Modal.getInstance(appointmentModal);
-      modalInstance.hide();
-
-      await fetchPendingRequests();
+      form.reset();
     } catch (err) {
-      alert("Failed to send request");
       console.error(err);
+      alert(err.message);
     }
   });
-
-  // Initial load
-  fetchAppointments();
-  fetchPendingRequests();
 });
+
+// Utility to get accepted appointments
+async function getAcceptedAppointments() {
+  const res = await fetch(API_BASE, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await res.json();
+  return data;
+}
+
+// Utility to find user by email
+async function getUserByEmail(email) {
+  const res = await fetch(`${USER_API}/find?email=${encodeURIComponent(email)}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) return null;
+  return res.json();
+}
+
+// Compute end time for calendar event
+function getEndTime(startTime, durationHours) {
+  const start = new Date(startTime);
+  start.setHours(start.getHours() + parseInt(durationHours));
+  return start.toISOString();
+}

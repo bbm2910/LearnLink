@@ -112,7 +112,7 @@ CREATE TABLE appointments (
     status TEXT CHECK(status IN('pending', 'accepted', 'rejected')) DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (id),
-    FOREIGN KEY recipient_id REFERENCES dim_user(user_id)
+    FOREIGN KEY (receiver_id) REFERENCES dim_user(user_id)
 );
 
 -- Insert into users
