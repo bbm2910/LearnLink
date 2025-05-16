@@ -117,7 +117,7 @@ CREATE TABLE appointments (
 );
 
 -- Insert into users
-INSERT INTO dim_user (first_name, last_name, email, password, city, postcode, image_url) VALUES
+INSERT INTO dim_user (first_name, last_name, email, password, postcode, city, image_url) VALUES
 ('Alice', 'Johnson', 'alice@example.com', 'pass123', 'Birmingham City Centre', 'B1 1TB', 'http://example.com/alice.jpg'),
 ('Bob', 'Smith', 'bob@example.com', 'pass456', 'Moseley', 'B13 9PQ', 'http://example.com/bob.jpg'),
 ('Carol', 'White', 'carol@example.com', 'pass789', 'Harborne', 'B17 9JT', 'http://example.com/carol.jpg'),
