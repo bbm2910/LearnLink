@@ -41,7 +41,42 @@ class Skill {
         return response.rows.map(row => new Skill(row));
     }
 
-  // For "Top Skills" pie chart visualisation
+  static async getUserSkills(userId) {
+    // Get teaching skills
+    const teachingQuery = await db.query(
+      `SELECT s.skill_id, s.skill_cat, s.skill_name, s.skill_desc, 'teaching' as skill_type
+       FROM dim_skill s
+       JOIN facts_teaching t ON 
+         s.skill_id = t.skill_1_id OR 
+         s.skill_id = t.skill_2_id OR 
+         s.skill_id = t.skill_3_id OR 
+         s.skill_id = t.skill_4_id OR 
+         s.skill_id = t.skill_5_id
+       WHERE t.user_id = $1`,
+      [userId]
+    );
+
+    // Get learning skills
+    const learningQuery = await db.query(
+      `SELECT s.skill_id, s.skill_cat, s.skill_name, s.skill_desc, 'learning' as skill_type
+       FROM dim_skill s
+       JOIN facts_learning l ON 
+         s.skill_id = l.skill_1_id OR 
+         s.skill_id = l.skill_2_id OR 
+         s.skill_id = l.skill_3_id OR 
+         s.skill_id = l.skill_4_id OR 
+         s.skill_id = l.skill_5_id
+       WHERE l.user_id = $1`,
+      [userId]
+    );
+
+    return {
+      teaching: teachingQuery.rows.map((row) => new Skill(row)),
+      learning: learningQuery.rows.map((row) => new Skill(row)),
+    };
+  }
+
+    // For "Top Skills" pie chart visualisation
   static getTopSkillsInfo = async () => {
     const response = await db.query(
       // Return top 5 skills being learned
@@ -90,7 +125,6 @@ class Skill {
 
     return response.rows;
   }
-
 }
 
 module.exports = {
