@@ -81,7 +81,6 @@ CREATE TABLE facts_session (
 );
 
 -- To record chat rooms
--- To record chat rooms
 CREATE TABLE chat_rooms(
     room_id INT GENERATED ALWAYS AS IDENTITY,
     user_1 INT,
@@ -92,7 +91,6 @@ CREATE TABLE chat_rooms(
 );
 
 -- To record messages
--- To record messages
 CREATE TABLE messages(
     message_id INT GENERATED ALWAYS AS IDENTITY,
     sender_id INT,
@@ -101,8 +99,6 @@ CREATE TABLE messages(
     sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     read BOOLEAN DEFAULT false,
     PRIMARY KEY (message_id),
-    FOREIGN KEY (sender_id) REFERENCES dim_user(user_id),
-    FOREIGN KEY (recipient_id) REFERENCES dim_user(user_id)
     FOREIGN KEY (sender_id) REFERENCES dim_user(user_id),
     FOREIGN KEY (recipient_id) REFERENCES dim_user(user_id)
 );
@@ -116,7 +112,6 @@ CREATE TABLE appointments (
     status TEXT CHECK(status IN('pending', 'accepted', 'rejected')) DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (id),
-    FOREIGN KEY requester_id REFERENCES dim_user(user_id),
     FOREIGN KEY recipient_id REFERENCES dim_user(user_id)
 );
 
@@ -161,7 +156,7 @@ INSERT INTO dim_skill (skill_name, skill_desc) VALUES
 
 -- Insert into time
 INSERT INTO dim_time (action_date, year, month, day, hour, minute, second) VALUES
--- October2024
+-- October 2024
 ('2024-10-02 09:00:00', 2024, 10, 2, 9, 0, 0),
 ('2024-10-02 10:00:00', 2024, 10, 2, 10, 0, 0),
 ('2024-10-02 10:30:00', 2024, 10, 2, 10, 30, 0),
@@ -183,7 +178,7 @@ INSERT INTO dim_time (action_date, year, month, day, hour, minute, second) VALUE
 ('2024-10-30 10:30:00', 2024, 10, 30, 10, 30, 0),
 ('2024-10-30 11:30:00', 2024, 10, 30, 11, 30, 0),
 
--- November2024
+-- November 2024
 ('2024-11-06 09:00:00', 2024, 11, 6, 9, 0, 0),
 ('2024-11-06 10:00:00', 2024, 11, 6, 10, 0, 0),
 ('2024-11-06 10:30:00', 2024, 11, 6, 10, 30, 0),
@@ -339,11 +334,3 @@ INSERT INTO facts_session (learner_id, teacher_id, skill_id, start_time_id, end_
 (10, 5, 5, 59, 60),
 (10, 1, 3, 71, 72),
 (10, 5, 6, 39, 40);
-
--- -- Chat room sim 1
--- INSERT INTO chat_rooms (user_1, user_2)
--- VALUES (1, 2);  -- Alice and Bob in a chat room
-
--- -- Message sim 1
--- INSERT INTO messages (room_id, user_sent, message_content)
--- VALUES (1, 1, 'Hello, Bob!');  -- Alice sends a message to Bob
