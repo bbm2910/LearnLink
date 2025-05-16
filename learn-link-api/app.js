@@ -15,7 +15,7 @@ app.use(cors());
 app.use(logger);
 app.use("/api/users", userRouter);
 app.use("/api/appointments", appointmentRouter);
-app.use("/skills", skillRouter);
+app.use("/api/skills", skillRouter);
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to Learn Link!");
