@@ -17,13 +17,8 @@ def index():
 def generate_current_skills_visualisation():
     data = request.json
 
-<<<<<<< HEAD
     skills = data.get('skills', [])
     sessions = data.get('learning_sessions', [])
-=======
-    skills = data.get('skills', []) # array of skill names
-    sessions = data.get('learning_sessions', []) # array of int value of no. of sessions
->>>>>>> 3062bba (Chnage learning_sessions key in app.py)
 
     # Data validation
     if not skills or not sessions or len(skills) != len(sessions):
