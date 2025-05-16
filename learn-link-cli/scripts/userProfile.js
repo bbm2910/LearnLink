@@ -17,9 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
           ".card-body h4"
         ).textContent = `${user.first_name} ${user.last_name}`;
         document.querySelector(".text-secondary.mb-1").textContent =
-          user.email || "N/A"; // Display email
+          user.email || "N/A";
         document.querySelector(".text-muted.font-size-sm").textContent =
-          user.postcode || "N/A"; // Display postcode
+          user.postcode || "N/A";
         document.querySelector(
           ".list-group-item:nth-child(1) .text-secondary"
         ).textContent = user.website || "N/A";
@@ -35,6 +35,15 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector(
           ".list-group-item:nth-child(5) .text-secondary"
         ).textContent = user.facebook || "N/A";
+        // Dynamically set the "Send Email" button
+        const sendEmailButton = document.getElementById("send-email");
+        if (user.email) {
+          sendEmailButton.addEventListener("click", () => {
+            window.location.href = `mailto:${user.email}`;
+          });
+        } else {
+          sendEmailButton.disabled = true; // Disable the button if no email is available
+        }
       })
       .catch((error) => console.error("Error loading user details:", error));
   } else {
