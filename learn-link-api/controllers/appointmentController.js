@@ -46,7 +46,16 @@ async function getPendingAppointments(req, res) {
     try {
         const userId = req.user.id
         const pendingAppointments = await Appointment.getPendingAppointments(userId)
-        res.json(pendingAppointments)
+
+        const data = pendingAppointments.map(appt => ({
+            id: appt.id,
+            requester_id: appt.requesterId,
+            start_time: appt.startTime,
+            duration: appt.duration
+
+    }));
+     res.json(data);
+     
     } catch(error) {
         res.status(500).json({error: 'Failed to fetch pending appointments'})
     }
