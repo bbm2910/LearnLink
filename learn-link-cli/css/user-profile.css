@@ -1,3 +1,13 @@
+:root {
+  --blue: #1865f2;
+  --green: #14bf96;
+  --light-blue: #ecf2fd;
+  --light-gray: #f5f5f5;
+  --dark-gray: #21242c;
+  --white: #ffffff;
+  --orange: #f46a37;
+}
+
 .container {
   margin-top: 8%;
 }
@@ -31,4 +41,19 @@
 .offcanvas-body button {
   margin-top: 20%;
   margin-left: 35%;
+}
+.user-skills-card {
+  background-color: var(--light-blue);
+}
+.skills-learning {
+  background-color: var(--orange);
+}
+.skill-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.skill-desc {
+  font-style: italic;
+  color: #777;
 }
