@@ -9,11 +9,12 @@ const USER_API = "http://localhost:3000/api/users";
 const token = localStorage.getItem("token");
 console.log(`JWT Token: ${token}`);
 
+let calendar;
 // Calendar init
 document.addEventListener("DOMContentLoaded", async () => {
   const calendarEl = document.getElementById("calendar");
 
-  const calendar = new Calendar(calendarEl, {
+  calendar = new Calendar(calendarEl, {
     plugins: [dayGridPlugin],
     initialView: "dayGridMonth",
     headerToolbar: {
@@ -27,14 +28,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadPendingRequests()
 
   // Load accepted appointments
-  const appointments = await getAcceptedAppointments();
-  appointments.forEach((appt) => {
-    calendar.addEvent({
-      title: "Appointment",
-      start: appt.start_time,
-      end: getEndTime(appt.start_time, appt.duration),
-    });
-  });
+  // const appointments = await getAcceptedAppointments();
+  // appointments.forEach((appt) => {
+  //   calendar.addEvent({
+  //     title: "Appointment",
+  //     start: appt.start_time,
+  //     end: getEndTime(appt.start_time, appt.duration),
+  //   });
+  // });
 
   // Handle appointment form submit
   const form = document.getElementById("appointment-form");
@@ -87,15 +88,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 // Utility to get accepted appointments
-async function getAcceptedAppointments() {
-  const res = await fetch(API_BASE, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const data = await res.json();
-  return data;
-}
+// async function getAcceptedAppointments() {
+//   const res = await fetch(API_BASE, {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+//   const data = await res.json();
+//    return data.filter(appt => appt.status === "accepted")
+// }
 
 // Utility to find user by email
 async function getUserByEmail(email) {
@@ -182,6 +183,7 @@ document.getElementById("pending-list").addEventListener("click", async (e) => {
   if (res.ok) {
     alert(`Appointment ${action}ed.`);
     await loadPendingRequests(); // Refresh pending list
+
     const appointments = await getAcceptedAppointments();
     appointments.forEach((appt) => {
       calendar.addEvent({
