@@ -1,11 +1,12 @@
 import { Calendar } from "https://cdn.skypack.dev/@fullcalendar/core@6.1.17";
 import dayGridPlugin from "https://cdn.skypack.dev/@fullcalendar/daygrid@6.1.17";
+import timeGridPlugin from "https://cdn.skypack.dev/@fullcalendar/timegrid@6.1.17";
 
-// Replace with your actual API base URL if needed
+
 const API_BASE = "http://localhost:3000/api/appointments";
 const USER_API = "http://localhost:3000/api/users";
 
-// Assume JWT is stored in localStorage after login
+
 const token = localStorage.getItem("token");
 console.log(`JWT Token: ${token}`);
 
@@ -14,29 +15,66 @@ let calendar;
 document.addEventListener("DOMContentLoaded", async () => {
   const calendarEl = document.getElementById("calendar");
 
-  calendar = new Calendar(calendarEl, {
-    plugins: [dayGridPlugin],
-    initialView: "dayGridMonth",
-    headerToolbar: {
-      left: "prev,next today",
-      center: "title",
-      right: "dayGridMonth",
-    },
-  });
+  const currentUserRes = await fetch(`${USER_API}/id`, {
+  headers: { Authorization: `Bearer ${token}` },
+});
+const currentUser = await currentUserRes.json();
+const currentUserId = currentUser.id;
+
+calendar = new Calendar(calendarEl, {
+  plugins: [dayGridPlugin, timeGridPlugin],
+  initialView: "timeGridWeek",
+  headerToolbar: {
+    left: "prev,next today",
+    center: "title",
+    right: "dayGridMonth,timeGridWeek,timeGridDay",
+  },
+  slotMinTime: "09:00:00",
+  slotMaxTime: "22:00:00",
+  eventContent: function(arg) {
+    const title = arg.event.title;
+    const timeText = arg.timeText;
+
+    return {
+      html: `
+        <div style="font-size: 0.85rem; line-height: 1.2">
+          <strong>${timeText}</strong><br/>
+          ${title}
+        </div>
+      `
+    };
+  },
+  eventDidMount: function (info) {
+    info.el.setAttribute(
+      "title",
+      `Start: ${info.event.start.toLocaleString()}\nEnd: ${info.event.end.toLocaleString()}`
+    );
+  }
+});
 
   calendar.render();
   await loadPendingRequests()
+  try {
 
-  // Load accepted appointments
-  // const appointments = await getAcceptedAppointments();
-  // appointments.forEach((appt) => {
-  //   calendar.addEvent({
-  //     title: "Appointment",
-  //     start: appt.start_time,
-  //     end: getEndTime(appt.start_time, appt.duration),
-  //   });
-  // });
+    
+    const appointments = await getAcceptedAppointments();
 
+    for (const appt of appointments) {
+      const otherUserId = appt.requesterId === currentUserId ? appt.receiverId : appt.requesterId;
+      const user = await fetchUserById(otherUserId);
+
+      calendar.addEvent({
+      title: `${user?.first_name || "Unknown"} (${appt.duration}h)`,
+      start: appt.startTime,
+      end: getEndTime(appt.startTime, appt.duration),
+  });
+}
+
+
+} catch (err) {
+  console.error("Error loading appointments:", err);
+}
+ 
   // Handle appointment form submit
   const form = document.getElementById("appointment-form");
   form.addEventListener("submit", async (e) => {
@@ -87,18 +125,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   
 });
 
-// Utility to get accepted appointments
-// async function getAcceptedAppointments() {
-//   const res = await fetch(API_BASE, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-//   const data = await res.json();
-//    return data.filter(appt => appt.status === "accepted")
-// }
+// Getter to get accepted appointments
+async function getAcceptedAppointments() {
+  const res = await fetch(API_BASE, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await res.json();
+   return data.filter(appt => appt.status === "accepted")
+}
 
-// Utility to find user by email
+// Getter to find user by email
 async function getUserByEmail(email) {
   const res = await fetch(`${USER_API}/by-email?email=${encodeURIComponent(email)}`, {
     headers: {
@@ -113,6 +151,7 @@ async function getUserByEmail(email) {
 // Compute end time for calendar event
 function getEndTime(startTime, durationHours) {
   const start = new Date(startTime);
+  if (isNaN(start)) throw new Error(`Invalid startTime: ${startTime}`);
   start.setHours(start.getHours() + parseInt(durationHours));
   return start.toISOString();
 }
