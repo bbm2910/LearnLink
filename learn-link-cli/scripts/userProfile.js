@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (userId) {
     // Fetch user details using the userId
-    fetch(`http://localhost:3000/users/${userId}`)
+    fetch(`http://localhost:3000/api/users/${userId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
