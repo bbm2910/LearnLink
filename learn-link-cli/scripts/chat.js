@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
    
     socket.on("connect", () => {
     console.log("Connected to Socket.IO");
+
+    socket.emit("get_conversations") //Load inbox wwhen socket connects
+
     });
 
     socket.on("connect_error", (err) => {
@@ -17,12 +20,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const sendBtn = document.getElementById("sendBtn")
     const recipientEmailInput = document.getElementById("recipientEmail")
     const messageContainer = document.getElementById("messageContainer")
+    const inboxContainer = document.getElementById("inboxContainer")
 
 
     let currentRecipientEmail = null
     let currentRecipientId = null
     const currentUserId = localStorage.getItem("user_id")
     let currentRecipient = null
+
+    socket.on("conversation_list", (partners) => {
+        inboxContainer.innerHTML = "";
+
+        partners.forEach((partner) => {
+            const div = document.createElement("div");
+            div.className = "conversation"; // Style as needed
+            div.innerHTML = `
+                <strong>${partner.email}</strong><br>
+                <small>Last messaged: ${new Date(partner.last_message_time).toLocaleString()}</small>
+            `;
+            div.addEventListener("click", () => {
+                recipientEmailInput.value = partner.email;
+                recipientEmailInput.dispatchEvent(new Event("change"));
+            });
+            inboxContainer.appendChild(div);
+        });
+    });
+
 
     //Send a message
     sendBtn.addEventListener("click", () => {
@@ -56,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
         messageContainer.appendChild(div);
         messageContainer.scrollTop = messageContainer.scrollHeight;
 
-
+        socket.emit("get_conversations"); //Refresh inbox
     })
 
     //Get chat history 
