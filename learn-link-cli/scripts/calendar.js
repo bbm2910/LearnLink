@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   headers: { Authorization: `Bearer ${token}` },
 });
 const currentUser = await currentUserRes.json();
-const currentUserId = currentUser.id;
+const currentUserId = currentUser.user_id;
 
 calendar = new Calendar(calendarEl, {
   plugins: [dayGridPlugin, timeGridPlugin],
