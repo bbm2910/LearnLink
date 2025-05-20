@@ -2,7 +2,7 @@
 async function loadUserSkills(userId) {
   try {
     const response = await fetch(
-      `http://localhost:3000/skills/user/${userId}/skills`
+      `http://localhost:3000/api/skills/user/${userId}/skills`
     );
 
     if (!response.ok) {

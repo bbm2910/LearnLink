@@ -12,7 +12,7 @@ const renderCurrentUserSkillsChart = async () => {
       },
     };
 
-    const response = await fetch(`http://localhost:3000/skills/current/${curentUserId}`, options); // To-do: Change endpoint to "/api/skills/current" in app.js
+    const response = await fetch(`http://localhost:3000/api/skills/current/${curentUserId}`, options);
     const responseData = await response.json();
 
     if (responseData.success) {
@@ -33,7 +33,7 @@ const renderTopUsersSkillsChart = async () => {
       },
     };
 
-    const response = await fetch("http://localhost:3000/skills/trending", options); // To-do: Change endpoint to "/api/skills/trending" in app.js
+    const response = await fetch("http://localhost:3000/api/skills/trending", options);
     const responseData = await response.json();
 
     if (responseData.success) {

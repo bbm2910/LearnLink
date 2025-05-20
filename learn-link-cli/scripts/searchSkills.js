@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     async function fetchSkills(query) {
       try {
-        const response = await fetch(`/api/skills?q=${encodeURIComponent(query)}`);
+        const response = await fetch(`http://localhost:3000/api/skills?q=${encodeURIComponent(query)}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
