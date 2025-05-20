@@ -1,10 +1,8 @@
 const jwt = require("jsonwebtoken");
 
 function authenticator(req, res, next) {
-
-
   //Had to change slightly change the way the JWT token was read (Khav)
-  const authHeader = req.headers['authorization'];  // lowercase key access
+  const authHeader = req.headers["authorization"]; // lowercase key access
   const token = authHeader?.replace("Bearer ", "");
 
   // const token = req.header("Authorization")?.replace("Bearer ", "");
@@ -18,7 +16,7 @@ function authenticator(req, res, next) {
 
     //Had to change to normalise user info to allow easier authentication in router requests (khav)
     req.user = {
-      id: decoded.user_id,
+      user_id: decoded.user_id,
       email: decoded.email,
     };
 

@@ -1,7 +1,5 @@
-const db = require("../database/connect");
-
 const axios = require("axios");
-
+const db = require("../database/connect");
 const { Skill } = require("../models/Skill");
 const {
   formatCurrentSkillsData,
@@ -69,69 +67,51 @@ const skillController = {
         });
       }
 
-      // Check if user exists
       const userCheck = await db.query(
         "SELECT user_id FROM dim_user WHERE user_id = $1",
         [userId]
       );
-
       if (userCheck.rows.length === 0) {
         return res.status(404).json({ error: "User not found" });
       }
 
-      // Check if skill exists
       const skillCheck = await db.query(
         "SELECT skill_id FROM dim_skill WHERE skill_id = $1",
         [skill_id]
       );
-
       if (skillCheck.rows.length === 0) {
         return res.status(404).json({ error: "Skill not found" });
       }
 
-      // Determine which table to update
       const tableName =
         skill_type === "teaching" ? "facts_teaching" : "facts_learning";
-
-      // Check if user already has an entry in the respective table
       const userEntryCheck = await db.query(
         `SELECT * FROM ${tableName} WHERE user_id = $1`,
         [userId]
       );
 
       let result;
-
       if (userEntryCheck.rows.length === 0) {
-        // If no entry exists, create a new one with skill_1_id
         result = await db.query(
           `INSERT INTO ${tableName} (user_id, skill_1_id) VALUES ($1, $2) RETURNING *`,
           [userId, skill_id]
         );
       } else {
-        // If entry exists, find the first empty skill slot and update it - this doesn't work yet !!!
         const userEntry = userEntryCheck.rows[0];
         let updatedField = null;
 
-        if (!userEntry.skill_1_id) {
-          updatedField = "skill_1_id";
-        } else if (!userEntry.skill_2_id) {
-          updatedField = "skill_2_id";
-        } else if (!userEntry.skill_3_id) {
-          updatedField = "skill_3_id";
-        } else if (!userEntry.skill_4_id) {
-          updatedField = "skill_4_id";
-        } else if (!userEntry.skill_5_id) {
-          updatedField = "skill_5_id";
-        }
+        if (!userEntry.skill_1_id) updatedField = "skill_1_id";
+        else if (!userEntry.skill_2_id) updatedField = "skill_2_id";
+        else if (!userEntry.skill_3_id) updatedField = "skill_3_id";
+        else if (!userEntry.skill_4_id) updatedField = "skill_4_id";
+        else if (!userEntry.skill_5_id) updatedField = "skill_5_id";
 
         if (updatedField) {
-          // Update the first empty slot
           result = await db.query(
             `UPDATE ${tableName} SET ${updatedField} = $1 WHERE user_id = $2 RETURNING *`,
             [skill_id, userId]
           );
         } else {
-          // All slots are full
           return res.status(400).json({
             error: `Maximum number of ${skill_type} skills reached (5). Remove a skill before adding a new one.`,
           });
@@ -150,23 +130,13 @@ const skillController = {
 
   currentUserSkillsInfo: async (req, res) => {
     try {
-      // Retrieve data for visualisation from database
       const skillsData = await Skill.getCurrentSkillsInfo(req.params.userId);
-
-      // Format into separate arrays
       const formattedData = formatCurrentSkillsData(skillsData);
-
-      // Send request to Python data API
       const response = await axios.post(
         "http://localhost:3005/current-skills-chart",
         formattedData
       );
-
-      // Return JSON response
-      res.status(200).json({
-        success: true,
-        visualisation: response.data,
-      });
+      res.status(200).json({ success: true, visualisation: response.data });
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
@@ -174,23 +144,13 @@ const skillController = {
 
   topSkillsInfo: async (req, res) => {
     try {
-      // Retrieve data for visualisation from database
       const skillsData = await Skill.getTopSkillsInfo();
-
-      // Format into separate arrays
       const formattedData = formatTopSkillsData(skillsData);
-
-      // Send request to Python data API
       const response = await axios.post(
         "http://localhost:3005/top-skills-chart",
         formattedData
       );
-
-      // Return JSON response
-      res.status(200).json({
-        success: true,
-        visualisation: response.data,
-      });
+      res.status(200).json({ success: true, visualisation: response.data });
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
