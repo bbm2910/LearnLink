@@ -31,6 +31,20 @@ document.addEventListener("DOMContentLoaded", () => {
           sendEmailButton.disabled = true;
         }
 
+        const messageBtn = document.getElementById("messageBtn");
+
+        if (user.email && user.first_name && user.last_name) {
+          const fullName = `${user.first_name} ${user.last_name}`;
+          messageBtn.addEventListener("click", () => {
+            // Redirect with both email and name
+            window.location.href = `dashboard-messages.html?email=${encodeURIComponent(
+              user.email
+            )}&name=${encodeURIComponent(fullName)}`;
+          });
+        } else {
+          messageBtn.disabled = true;
+        }
+
         //  Load the user's skills after loading their profile
         loadUserSkills(userId);
       })

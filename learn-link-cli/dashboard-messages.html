@@ -97,7 +97,10 @@
       <main class="main-dashboard container mt-5 pt-5" style="max-width: 700px;">
  
   <div class="mb-4">
-    <label for="recipientEmail" class="form-label fw-semibold">Send to (Email):</label>
+    <label class="form-label fw-semibold" id="messageLabel">
+  Message with <span id="recipientName" class="text-primary"></span>
+</label>
+
     <div class="input-group">
       <input
         type="email"
@@ -139,7 +142,8 @@
       crossorigin="anonymous"
     ></script>
     <script src="scripts/index.js" defer></script>
-    <script src="scripts/logout.js"></script>
+    <script src="scripts/logout.js" defer></script>
+    <script src="scripts/sendMessage.js" defer></script>
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" defer></script>
     <script src="scripts/chat.js" defer></script>
     
