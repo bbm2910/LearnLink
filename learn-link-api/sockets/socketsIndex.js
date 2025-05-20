@@ -13,6 +13,7 @@ function initSocket(server){
     io.use((socket, next) => {
         try {
             const token = socket.handshake.auth.token
+            console.log(`Token: ${token}`);
             if (!token){
                 console.log("No token provided");
                 return next(new Error("No Token"))

@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
             token : localStorage.getItem("token")
         }
     })
-
+   
     socket.on("connect", () => {
     console.log("Connected to Socket.IO");
     });
@@ -36,14 +36,20 @@ document.addEventListener("DOMContentLoaded", () => {
         socket.emit("private_message", {
         recipientEmail,     
         message
+
+        
   });
         messageInput.value = "";
     });
 
     socket.on("private_message", (data) => {
+        console.log("💬 Received message:", data); //ER
         
         const div = document.createElement("div");
         const isSender = String(data.senderId) === String(currentUserId);
+
+       
+
         console.log("PM isSender: ", isSender);
         div.className = `message ${isSender ? "from-me" : "from-them"}`;
         div.innerHTML = `<strong>${isSender ? "You" : data.senderEmail || currentRecipientEmail}:</strong> ${data.message}`;
@@ -79,9 +85,9 @@ document.addEventListener("DOMContentLoaded", () => {
         messageContainer.scrollTop = messageContainer.scrollHeight;
     });
 
-    socket.on("error", (err) => {
-        console.error("Socket error:", err);
-        alert(err.message || "Socket Error");
-    });
+    // socket.on("error", (err) => {
+    //     console.error("Socket error:", err);
+    //     alert(err.message || "Socket Error");
+    // });
 });
 
