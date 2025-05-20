@@ -22,7 +22,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
 
   try {
     const response = await fetch(
-      "http://localhost:3000/users/register",
+      "http://localhost:3000/api/users/register",
       options
     );
     const data = await response.json();

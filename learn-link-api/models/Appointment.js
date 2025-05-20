@@ -4,7 +4,7 @@ class Appointment{
     constructor(data) {
         this.id = data.id;
         this.requesterId = data.requester_id;
-        this.receiverd = data.receiver_id;
+        this.receiverId = data.receiver_id;
         this.startTime = data.start_time;
         this.duration = data.duration;
         this.status = data.status;
@@ -30,8 +30,8 @@ class Appointment{
         return result.rows.map(row => new Appointment(row))
     }
 
-    static async getPendingAppoinments(userId){
-        const result = await db.query(`SELECT * FROM appointments WHERE receiver_id = $1 AND status = 'pending'`,[userId])
+    static async getPendingAppointments(userId){
+        const result = await db.query(`SELECT id, requester_id, start_time, duration FROM appointments WHERE receiver_id = $1 AND status = 'pending'`,[userId])
         return result.rows.map(row => new Appointment(row))
     }
 

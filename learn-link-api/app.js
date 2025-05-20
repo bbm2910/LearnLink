@@ -15,14 +15,12 @@ app.use(cors());
 app.use(logger);
 app.use("/api/users", userRouter);
 app.use("/api/appointments", appointmentRouter);
-app.use("/skills", skillRouter);
+app.use("/skills", skillRouter);  // To-do: Change endpoint to "/api/skills/" (also change in dashboard-skills.js)
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to Learn Link!");
 });
 
-app.use("/users", userRouter);
-
 module.exports = {
-  app,
+  app
 };
