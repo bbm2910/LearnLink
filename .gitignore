@@ -50,3 +50,4 @@ package-lock.json
 
 # Python
 __pycache__
+venv
