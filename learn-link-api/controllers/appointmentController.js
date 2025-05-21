@@ -4,7 +4,6 @@ async function createAppointment(req, res) {
     try {
         const {receiverId, startTime, duration} = req.body
         const requesterId = req.user.user_id
-        console.log('JWT Token UserID: ', requesterId);
         const appointment = await Appointment.createAppointment({
             requesterId,
             receiverId,
