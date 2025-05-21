@@ -336,3 +336,54 @@ INSERT INTO facts_session (learner_id, teacher_id, skill_id, start_time_id, end_
 (10, 5, 5, 59, 60),
 (10, 1, 3, 71, 72),
 (10, 5, 6, 39, 40);
+
+-- Insert chat room data
+INSERT INTO chat_rooms (user_1, user_2) VALUES
+(3, 1),  -- Carol ↔ Alice (teacher)
+(5, 8),  -- Eva ↔ Hank (teacher)
+(10, 1), -- Jack ↔ Alice (teacher)
+(4, 7),   -- David ↔ Grace (Grace teaches guitar and piano)
+(2, 5),   -- Bob ↔ Eva (Eva teaches saxophone + guitar)
+(6, 1),   -- Frank ↔ Alice (Alice teaches guitar)
+(7, 8);   -- Grace ↔ Hank (both involved in guitar lessons)
+
+-- Insert messages data
+INSERT INTO messages (sender_id, recipient_id, message, sent_at) VALUES
+-- Carol → Alice
+(3, 1, 'Hi Alice! I’m interested in guitar lessons. Are you available next week?', '2025-05-15 10:00:00'),
+(1, 3, 'Hi Carol! Yes, I’m free Tuesday or Thursday afternoon.', '2025-05-15 10:15:00'),
+-- Eva → Hank
+(5, 8, 'Hey Hank! Loved your guitar profile. Can we do a trial lesson soon?', '2025-05-16 11:30:00'),
+(8, 5, 'Thanks Eva! How about Wednesday at 2pm?', '2025-05-16 11:35:00'),
+-- Jack → Alice
+(10, 1, 'Hi Alice, can we book another session this weekend?', '2025-05-17 09:00:00'),
+(1, 10, 'Sure, Saturday morning at 10am works for me!', '2025-05-17 09:05:00'),
+-- David ↔ Grace
+(4, 7, 'Hi Grace, I’m trying to learn guitar basics. Can we set up a session?', '2025-05-18 15:00:00'),
+(7, 4, 'Of course! How’s Friday afternoon?', '2025-05-18 15:10:00'),
+-- Bob ↔ Eva
+(2, 5, 'Hey Eva, do you still offer lessons in guitar?', '2025-05-18 16:20:00'),
+(5, 2, 'Yes! I’m available next week on Monday morning.', '2025-05-18 16:22:00'),
+-- Frank ↔ Alice
+(6, 1, 'Hi Alice, I’m in Shoreditch and want to learn acoustic guitar. Can we start this weekend?', '2025-05-19 10:00:00'),
+(1, 6, 'Hi Frank! I can do Sunday at 4pm.', '2025-05-19 10:05:00'),
+-- Grace ↔ Hank (peer collaboration chat)
+(7, 8, 'Hey Hank, I noticed we both teach guitar. Want to collaborate on a group session?', '2025-05-20 12:00:00'),
+(8, 7, 'Sounds awesome. Let’s do it next Wednesday afternoon?', '2025-05-20 12:05:00');
+
+-- Insert appointment data
+INSERT INTO appointments (requester_id, receiver_id, start_time, duration, status, created_at) VALUES
+-- Carol ↔ Alice: Assume agreed on May 20 at 2pm for 60 mins
+(3, 1, '2025-05-20 14:00:00', 60, 'accepted', '2025-05-15 10:20:00'),
+-- Eva ↔ Hank: May 21 at 2pm, 60 mins
+(5, 8, '2025-05-21 14:00:00', 60, 'accepted', '2025-05-16 11:40:00'),
+-- Jack ↔ Alice: May 24 at 10am, 60 mins
+(10, 1, '2025-05-24 10:00:00', 60, 'accepted', '2025-05-17 09:10:00'),
+-- David ↔ Grace: Friday, May 23 at 3pm
+(4, 7, '2025-05-23 15:00:00', 60, 'accepted', '2025-05-18 15:15:00'),
+-- Bob ↔ Eva: Monday, May 26 at 10am
+(2, 5, '2025-05-26 10:00:00', 60, 'accepted', '2025-05-18 16:25:00'),
+-- Frank ↔ Alice: Sunday, May 25 at 4pm
+(6, 1, '2025-05-25 16:00:00', 60, 'accepted', '2025-05-19 10:10:00'),
+-- Grace ↔ Hank: Peer collaboration on May 28 at 2pm
+(7, 8, '2025-05-28 14:00:00', 90, 'accepted', '2025-05-20 12:10:00');
