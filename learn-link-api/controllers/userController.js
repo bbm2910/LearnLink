@@ -136,10 +136,43 @@ async function getUserById(req, res) {
   console.log("Received userId:", req.params.userId);
 }
 
+async function getUserByEmail(req, res) {
+  try {
+    const { email } = req.query;
+    console.log(`User Controller, looking up email: ${email}`);
+    const user = await User.getOneByEmail(email);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json({ id: user.user_id, email: user.email });
+  } catch (error) {
+    console.log(`UC, Catch error email: ${email}`);
+    res.status(500).json({ error: "Failed to fetch email " });
+  }
+}
+
+// async function getLastSessionSummary(req, res) {
+//   try {
+//     // const userId = req.user.user_id;
+//     // const lastSessionSummary = await User.getLastSession();
+//     const today = new Date();
+//     const options = { day: "numeric", month: "long", year: "numeric" };
+//     const formattedDate = today.toLocaleDateString("en-GB", options);
+//     res.status(200).json({
+//       skill: "Javascript",
+//       date: formattedDate,
+//     });
+//   } catch (err) {
+//     console.error("Error fetching last session summary:", err);
+//     res.status(500).json({ error: "Failed to last session summary." });
+//   }
+// }
+
 module.exports = {
   register,
   userLogin,
   getProfile,
   getTopUsers,
   getUserById,
+  getUserByEmail,
 };

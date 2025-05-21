@@ -8,24 +8,84 @@
   --fc-button-active-bg-color: #f46a37;
   --fc-button-active-border-color: #f46a37;
 }
+
 #calendar {
-  max-width: 800px;
-  height: 600px;
+  max-width: 1000px;
+  height: auto;
   margin: 0 auto;
-  font-size: 0.9em;
+  font-size: 0.95rem;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
+
+
 .add-event {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
   margin: 2% auto;
+  background-color: #14bf96;
+  border-color: #14bf96;
+  color: white;
 }
+
+.add-event:hover {
+  background-color: #f46a37;
+  border-color: #f46a37;
+}
+
 .add-event-p {
   font-size: 0.7rem;
   width: 100%;
   color: var(--blue);
+  text-align: center;
 }
-.offcanvas-body button {
+
+.offcanvas-body button.logout-btn {
   margin-top: 20%;
   margin-left: 35%;
 }
+
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header, .modal-footer {
+  border: none;
+}
+
+.btn-primary {
+  background-color: #14bf96;
+  border-color: #14bf96;
+}
+
+.btn-primary:hover {
+  background-color: #f46a37;
+  border-color: #f46a37;
+}
+
+.form-control:focus {
+  border-color: #14bf96;
+  box-shadow: 0 0 0 0.2rem rgba(20, 191, 150, 0.25);
+}
+
+.main-dashboard {
+  margin-top: 120px;
+}
+
+.fc-col-header {
+  border-radius: 16px !important;
+}
+
+.fc-scrollgrid-section > td {
+  border-radius: 0px 0px 16px 16px !important;
+}
+
+.fc-scrollgrid-section > th {
+  border-radius: 0px 16px 0px 0px !important;
+}
+
+.fc-scrollgrid {
+  border-radius: 16px !important;
+}
+

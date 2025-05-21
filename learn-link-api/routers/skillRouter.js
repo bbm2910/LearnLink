@@ -1,13 +1,17 @@
 const { Router } = require("express");
-
 const skillController = require("../controllers/skillController");
+const authenticator = require("../middleware/authenticator");
 
 const skillRouter = Router();
 
-router.post("/", skillController.createSkill);
-router.get("/:id", skillController.getSkillById);
-router.get("/", skillController.searchSkills);
+skillRouter.get("/user/:userId/skills", skillController.getUserSkills);
+skillRouter.post("/user/:userId/add", authenticator, skillController.addUserSkill); // New endpoint with authentication - to add skills
+skillRouter.post("/", skillController.createSkill);
+skillRouter.get("/", skillController.searchSkills);
+
+skillRouter.get("/current/:userId", skillController.currentUserSkillsInfo);
+skillRouter.get("/trending", skillController.topSkillsInfo);
 
 module.exports = {
-    skillRouter
-}
+  skillRouter
+};

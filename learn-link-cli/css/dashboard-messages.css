@@ -1,3 +1,12 @@
+:root {
+  --blue: #1865f2;
+  --green: #14bf96;
+  --light-blue: #ecf2fd;
+  --light-gray: #f5f5f5;
+  --dark-gray: #21242c;
+  --white: #ffffff;
+  --orange: #f46a37;
+}
 #messageContainer {
   padding-top: 12px;
   padding-bottom: 12px;
@@ -11,7 +20,6 @@
   border-radius: 5px;
 }
 
-/* Base message styling */
 .message {
   max-width: 75%;
   margin-bottom: 8px;
@@ -24,23 +32,79 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Messages from current user */
+#recipientName {
+  color: var(--orange);
+  /* font-style: italic; */
+}
+
 .from-me {
-  background-color: #0d6efd; /* Bootstrap's primary blue */
+  background-color: #0d6efd;
   color: white;
   align-self: flex-end;
   border-bottom-right-radius: 4px;
 }
 
-/* Messages from others */
 .from-them {
-  background-color: #e9ecef; /* light Bootstrap gray */
+  background-color: #e9ecef;
   color: black;
   align-self: flex-start;
   border-bottom-left-radius: 4px;
 }
 
-.site-footer {
+.inbox-container {
+  display: flex;
+  height: 75vh;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.conversations {
+  width: 30%;
+  background: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  overflow-y: auto;
+}
+
+.conversation {
+  padding: 15px 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #dee2e6;
+  transition: background-color 0.2s ease;
+  background-color: white;
+  margin: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.conversation:hover {
+  background-color: #e9ecef;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.conversation.active {
+  background-color: #dbeafe;
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+  border: 1px solid #0d6efd;
+  margin: 8px 12px;
+}
+
+.chat-section {
+  width: 70%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
+}
+
+.input-group {
+  margin-top: 15px;
+}
+
+/* ========= OPTIONAL FOOTER CLEANUP ========= */
+/* .site-footer {
   width: 100%;
   text-align: center;
   padding: 10px 0;
@@ -50,4 +114,4 @@
 }
 .site-footer span {
   color: var(--blue);
-}
+} */

@@ -3,23 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LearnLink</title>
+    <title>LearnLink Inbox</title>
+
+    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
-      crossorigin="anonymous"
     />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/dashboard-messages.css" />
   </head>
   <body>
+    <!-- NAVBAR -->
     <nav class="navbar bg-body-tertiary fixed-top border-bottom">
       <div class="container-fluid px-5">
         <a class="navbar-brand" href="#">
@@ -28,30 +33,23 @@
             alt="logo"
             width="150"
             height="65"
-        /></a>
+          />
+        </a>
         <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar"
-          aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div
-          class="offcanvas offcanvas-end"
-          tabindex="-1"
-          id="offcanvasNavbar"
-          aria-labelledby="offcanvasNavbarLabel"
-        >
+        <div class="offcanvas offcanvas-end" id="offcanvasNavbar">
           <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Main Menu</h5>
+            <h5 class="offcanvas-title">Main Menu</h5>
             <button
               type="button"
               class="btn-close"
               data-bs-dismiss="offcanvas"
-              aria-label="Close"
             ></button>
           </div>
           <div class="offcanvas-body">
@@ -59,7 +57,6 @@
               <li class="nav-item">
                 <a
                   class="nav-link btn btn-outline-primary"
-                  aria-current="page"
                   href="dashboard-skills.html"
                   >Main Dashboard</a
                 >
@@ -73,7 +70,7 @@
               </li>
               <li class="nav-item">
                 <a
-                  class="nav-link btn btn-outline-primary"
+                  class="nav-link btn btn-outline-primary active"
                   href="dashboard-messages.html"
                   >Messages</a
                 >
@@ -92,56 +89,67 @@
       </div>
     </nav>
 
+    <!-- MAIN -->
     <main class="main-dashboard container mt-5 pt-5">
-  <h1>Your Messages</h1>
-      <main class="main-dashboard container mt-5 pt-5" style="max-width: 700px;">
- 
-  <div class="mb-4">
-    <label for="recipientEmail" class="form-label fw-semibold">Send to (Email):</label>
-    <div class="input-group">
-      <input
-        type="email"
-        id="recipientEmail"
-        class="form-control"
-        placeholder="Enter recipient's email"
-        required
-      />
-    </div>
-  </div>
+      <h1 class="mb-4">Inbox</h1>
 
-  <div
-    id="messageContainer"
-    class="border rounded p-3 mb-3 bg-light"
-    style="height: 300px; overflow-y: auto; font-size: 0.95rem;"
-  >
-    <div class="text-muted text-center">Start chatting...</div>
-  </div>
+      <div class="inbox-container d-flex gap-3" style="height: 500px">
+        <!-- LEFT: Conversations List -->
+        <div
+          id="inboxContainer"
+          class="bg-white border rounded overflow-auto"
+          style="flex: 1 1 250px"
+        >
+          <div class="text-muted text-center p-3">Loading inbox...</div>
+        </div>
 
-  <div class="input-group">
-    <input
-      type="text"
-      id="messageInput"
-      class="form-control"
-      placeholder="Type your message..."
-    />
-    <button class="btn btn-primary" id="sendBtn">Send</button>
-  </div>
-  
-</main>
-<!-- 
-    <footer class="site-footer">
-      <p>&reg; LearnLink 2025 – Part of <span>La Fosse</span> final project</p>
-    </footer> -->
+        <!-- RIGHT: Chat Section -->
+        <div
+          class="chat-section d-flex flex-column"
+          style="flex: 3 1 600px; height: 100%"
+        >
+          <!-- Recipient Email -->
+          <div class="mb-3">
+            <label for="recipientEmail" class="form-label fw-semibold"
+              >Message with <span id="recipientName"></span
+            ></label>
+            <input
+              type="email"
+              id="recipientEmail"
+              class="form-control"
+              placeholder="Enter recipient's email"
+              required
+            />
+          </div>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
-      crossorigin="anonymous"
-    ></script>
+          <!-- Message Container -->
+          <div
+            id="messageContainer"
+            class="bg-white border rounded flex-grow-1 overflow-auto p-3"
+          >
+            <div class="text-muted text-center">Start chatting...</div>
+          </div>
+
+          <!-- Input Box -->
+          <div class="input-group mt-3">
+            <input
+              type="text"
+              id="messageInput"
+              class="form-control"
+              placeholder="Type your message..."
+            />
+            <button class="btn btn-primary" id="sendBtn">Send</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script src="scripts/index.js" defer></script>
-    <script src="scripts/logout.js"></script>
-    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" defer></script>
+    <script src="scripts/sendMessage.js"></script>
+    <script src="scripts/logout.js" defer></script>
     <script src="scripts/chat.js" defer></script>
-    
   </body>
 </html>
