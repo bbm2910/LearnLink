@@ -6,7 +6,7 @@ async function loadUserSkills(userId) {
     }
 
     const response = await fetch(
-      `http://localhost:3000/skills/user/${userId}/skills`,
+      `http://localhost:3000/api/skills/user/${userId}/skills`,
       {
         method: "GET",
         headers: {

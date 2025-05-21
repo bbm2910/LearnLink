@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       // 1. create the skill in the skills table
-      const skillResponse = await fetch("http://localhost:3000/skills", {
+      const skillResponse = await fetch("http://localhost:3000/api/skills", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const userId = userInfo.user_id;
 
       const addUserSkillResponse = await fetch(
-        `http://localhost:3000/skills/user/${userId}/add`,
+        `http://localhost:3000/api/skills/user/${userId}/add`,
         {
           method: "POST",
           headers: {

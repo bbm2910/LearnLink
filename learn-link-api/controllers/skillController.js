@@ -46,7 +46,7 @@ const skillController = {
     } catch (err) {
       console.error("Error fetching user skills:", err);
       res.status(500).json({ error: "Failed to fetch user skills" });
-    }
+    }//,
   },
 
   addUserSkill: async (req, res) => {
@@ -157,4 +157,4 @@ const skillController = {
   },
 };
 
-module.exports = skillController;
+module.exports = skillController
