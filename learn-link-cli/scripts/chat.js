@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     socket.on("connect_error", (err) => {
-    console.error("Connection failed:", err.message);
+    
     });
 
     const messageInput = document.getElementById("messageInput")
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     socket.on("private_message", (data) => {
-        console.log("💬 Received message:", data); //ER
+        
         
         const div = document.createElement("div");
         const isSender = String(data.senderId) === String(currentUserId);

@@ -8,7 +8,7 @@ const USER_API = "http://localhost:3000/api/users";
 
 
 const token = localStorage.getItem("token");
-console.log(`JWT Token: ${token}`);
+
 
 let calendar;
 // Calendar init
