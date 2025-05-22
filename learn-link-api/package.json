@@ -6,7 +6,8 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "setup-db": "node ./database/setup.js",
-    "test": "jest --watchAll --verbose --detectOpenHandles --runInBand"
+    "test": "jest --watchAll --verbose --detectOpenHandles --runInBand",
+    "test:coverage": "jest --coverage --runInBand"
   },
   "keywords": [],
   "author": "",

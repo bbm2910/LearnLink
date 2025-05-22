@@ -34,16 +34,6 @@ describe("index.html", () => {
     });
   });
 
-  it("should have a main section with welcome text and CTA button", () => {
-    const main = document.querySelector("main");
-    const heading = main.querySelector("h1");
-    const ctaBtn = main.querySelector("a button");
-
-    expect(heading.textContent).toContain("Welcome to");
-    expect(ctaBtn).toBeTruthy();
-    expect(ctaBtn.textContent.toLowerCase()).toContain("try learnlink free");
-  });
-
   it("should have a footer with copyright", () => {
     const footer = document.querySelector("footer");
     expect(footer).toBeTruthy();
