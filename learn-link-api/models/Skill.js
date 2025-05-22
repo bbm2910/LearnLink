@@ -48,6 +48,7 @@ class Skill {
             du.user_id,
             du.first_name,
             du.last_name,
+            du.postcode,
             COUNT(fs.teacher_id) AS session_count
         FROM facts_teaching ft
         JOIN dim_user du ON ft.user_id = du.user_id
@@ -58,7 +59,7 @@ class Skill {
             ON ft.user_id = fs.teacher_id 
             AND fs.skill_id = ds.skill_id
         WHERE ds.skill_name ILIKE $1
-        GROUP BY du.user_id, du.first_name, du.last_name
+        GROUP BY du.user_id, du.first_name, du.last_name, du.postcode
         ORDER BY session_count DESC;
         `, [searchTerm]
     )
