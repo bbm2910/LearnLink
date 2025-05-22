@@ -28,9 +28,12 @@ def generate_current_skills_visualisation():
     plt.figure(figsize=(12, 6))
     sns.set_style("white")
     sns.barplot(y=skills, x=sessions, palette='Blues_d')
-    plt.title("Skills You're Currently Learning")
+    # plt.title("Skills You're Currently Learning")
     plt.xlabel("Number of Sessions")
     plt.ylabel("Skill")
+    plt.xticks(fontsize=22)
+    plt.yticks(fontsize=22)
+    
     plt.tight_layout()
     plt.show()
 
@@ -60,7 +63,7 @@ def generate_top_skills_visualisation():
     fig, ax = plt.subplots()
     colors = sns.color_palette("pastel", len(skills))
     ax.pie(learners, labels=skills, autopct='%1.1f%%', startangle=140, colors=colors)
-    ax.set_title("Top Skills Learned by Users")
+    # ax.set_title("Top Skills Learned by Users")
     ax.axis('equal')
 
     # Generate image & HTML

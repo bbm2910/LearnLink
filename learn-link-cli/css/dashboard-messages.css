@@ -102,7 +102,26 @@
 .input-group {
   margin-top: 15px;
 }
+.offcanvas-body button {
+  margin-top: 20%;
+  margin-left: 35%;
+}
 
+h1 {
+  margin-top: 1%;
+}
+#messageInput {
+  background-color: var(--light-blue);
+}
+#messageContainer {
+  background-color: var(--light-gray);
+}
+.inbox-container {
+  background-color: var(--light-blue);
+}
+.chat-section {
+  background-color: var(--light-gray);
+}
 /* ========= OPTIONAL FOOTER CLEANUP ========= */
 /* .site-footer {
   width: 100%;

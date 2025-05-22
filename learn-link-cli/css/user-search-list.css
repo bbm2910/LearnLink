@@ -1,70 +1,73 @@
 :root {
-    --blue: #1865f2;
-    --green: #14bf96;
-    --light-blue: #ecf2fd;
-    --light-gray: #f5f5f5;
-    --dark-gray: #21242c;
-    --white: #ffffff;
-    --orange: #f46a37;
+  --blue: #1865f2;
+  --green: #14bf96;
+  --light-blue: #ecf2fd;
+  --light-gray: #f5f5f5;
+  --dark-gray: #21242c;
+  --white: #ffffff;
+  --orange: #f46a37;
 }
-  
+
 .container {
-    margin-top: 8%;
+  margin-top: 8%;
 }
 
 .card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 0 solid transparent;
-    border-radius: 0.25rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%),
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: var(--light-blue);
+  background-clip: border-box;
+  border: 0 solid transparent;
+  border-radius: 0.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%),
     0 2px 6px 0 rgb(206 206 238 / 54%);
-}   
+}
 
 .card .card-body p {
-    margin-bottom: 0;
-    text-align: center !important;
+  margin-bottom: 0;
+  text-align: center !important;
+}
+.card-text {
+  height: 50px;
+  text-align: center !important;
 }
 
 .site-footer {
-    width: 100%;
-    text-align: center;
-    padding: 10px 0;
-    font-size: 0.8rem;
-    margin-top: auto;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 0.8rem;
+  margin-top: auto;
 }
 
 .site-footer span {
-    color: var(--blue);
+  color: var(--blue);
 }
 
 .offcanvas-body button {
-    margin-top: 20%;
-    margin-left: 35%;
+  margin-top: 20%;
+  margin-left: 35%;
 }
 
 .user-skills-card {
-    background-color: #f46a37;
-    background-color: var(--light-blue);
+  background-color: #f46a37;
+  background-color: var(--light-blue);
 }
 
 .skills-learning {
-    background-color: var(--orange);
+  background-color: var(--orange);
 }
 
 .skill-name {
-    font-weight: bold;
-    color: #333;
+  font-weight: bold;
+  color: #333;
 }
 
 .skill-desc {
-    font-style: italic;
-    color: #777;
+  font-style: italic;
+  color: #777;
 }
-  

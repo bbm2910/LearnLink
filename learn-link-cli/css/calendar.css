@@ -8,37 +8,25 @@
   --fc-button-active-bg-color: #f46a37;
   --fc-button-active-border-color: #f46a37;
 }
+:root {
+  --blue: #1865f2;
+  --green: #14bf96;
+  --light-blue: #ecf2fd;
+  --light-gray: #f5f5f5;
+  --dark-gray: #21242c;
+  --white: #ffffff;
+  --orange: #f46a37;
+}
 
 #calendar {
   max-width: 1000px;
-  height: auto;
+  /* height: auto; */
   margin: 0 auto;
-  font-size: 0.95rem;
-  background-color: white;
-  border-radius: 8px;
-  padding: 20px;
+  font-size: 0.8rem;
+  background-color: var(--light-blue);
+  padding: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-
-.add-event {
-  display: block;
-  margin: 2% auto;
-  background-color: #14bf96;
-  border-color: #14bf96;
-  color: white;
-}
-
-.add-event:hover {
-  background-color: #f46a37;
-  border-color: #f46a37;
-}
-
-.add-event-p {
-  font-size: 0.7rem;
-  width: 100%;
-  color: var(--blue);
-  text-align: center;
+  height: 700px;
 }
 
 .offcanvas-body button.logout-btn {
@@ -50,7 +38,8 @@
   border-radius: 10px;
 }
 
-.modal-header, .modal-footer {
+.modal-header,
+.modal-footer {
   border: none;
 }
 
@@ -88,4 +77,3 @@
 .fc-scrollgrid {
   border-radius: 16px !important;
 }
-
