@@ -36,3 +36,12 @@
 h1 {
   margin: 1% auto;
 }
+.last-session p {
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin: 1%;
+}
+.last-session span {
+  color: var(--orange);
+  font-weight: 700;
+}
