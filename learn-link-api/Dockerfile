@@ -9,7 +9,6 @@ ENV DB_PORT=5432
 ENV DB_HOST=learnlink-db
 ENV DB_PASSWORD=learnlink
 ENV DB_NAME=learnlink
-
-# ENV SECRET_TOKEN=unknown
+ENV SECRET_TOKEN=strongpassword
 EXPOSE 3000
 CMD ["node", "index.js"]

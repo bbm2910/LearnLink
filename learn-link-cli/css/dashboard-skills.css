@@ -7,6 +7,7 @@
   --white: #ffffff;
   --orange: #f46a37;
 }
+
 .main-dashboard {
   padding-top: 92px;
 }
@@ -23,7 +24,7 @@
   color: var(--light-gray);
 }
 .card-title {
-  margin-bottom: 3%;
+  margin-bottom: 1%;
 }
 .list-group li {
   background-color: var(--light-blue);
@@ -31,4 +32,7 @@
 }
 .list-group li:hover {
   background-color: var(--white);
+}
+h1 {
+  margin: 1% auto;
 }

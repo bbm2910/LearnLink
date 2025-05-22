@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         li.classList.add("list-group-item");
   
         li.innerHTML = `
-          <strong>${highlightMatch(skill.skill_name, query)}</strong><br />
+          <strong><a href="user-search-list.html?q=${query}">${highlightMatch(skill.skill_name, query)}</a></strong><br />
           <small>${highlightMatch(skill.skill_desc, query)}</small>
         `;
   

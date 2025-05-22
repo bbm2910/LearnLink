@@ -67,11 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     socket.on("private_message", (data) => {
         
-        
         const div = document.createElement("div");
         const isSender = String(data.senderId) === String(currentUserId);
-
-       
 
         console.log("PM isSender: ", isSender);
         div.className = `message ${isSender ? "from-me" : "from-them"}`;

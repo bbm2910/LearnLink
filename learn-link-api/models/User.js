@@ -52,6 +52,7 @@ class User {
     }
     return new User(response.rows[0]);
   };
+  
   // Get the top users to display ont he dashboard
   static getTopUsers = async (limit = 10) => {
     const response = await db.query(
@@ -79,7 +80,6 @@ class User {
       sessions_taught: parseInt(row.sessions_taught, 10),
     }));
   };
-  // TODO?: Add update user details methods - Decide which details can be updated.
 }
 
 module.exports = {

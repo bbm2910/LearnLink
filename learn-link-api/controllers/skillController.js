@@ -128,6 +128,22 @@ const skillController = {
     }
   },
 
+  getAllSkillTeachers: async (req, res) => {
+    try {
+
+      if (!req.query.q) {
+        throw new Error(`Invalid search term provided.`);
+      }
+
+      const searchedSkill = req.query.q
+      const skillsTeacherData = await Skill.getSkillTeachers(searchedSkill);
+      return res.status(200).json(skillsTeacherData);
+
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  },
+
   currentUserSkillsInfo: async (req, res) => {
     try {
       const skillsData = await Skill.getCurrentSkillsInfo(req.params.userId);

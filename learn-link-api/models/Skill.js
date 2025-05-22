@@ -41,6 +41,31 @@ class Skill {
     return response.rows.map((row) => new Skill(row));
   }
   
+  static async getSkillTeachers(skill) {
+    const searchTerm = `%${skill}%`
+    const response = await db.query(
+      `SELECT 
+            du.user_id,
+            du.first_name,
+            du.last_name,
+            du.postcode,
+            COUNT(fs.teacher_id) AS session_count
+        FROM facts_teaching ft
+        JOIN dim_user du ON ft.user_id = du.user_id
+        JOIN dim_skill ds ON ds.skill_id IN (
+            ft.skill_1_id, ft.skill_2_id, ft.skill_3_id, ft.skill_4_id, ft.skill_5_id
+        )
+        JOIN facts_session fs 
+            ON ft.user_id = fs.teacher_id 
+            AND fs.skill_id = ds.skill_id
+        WHERE ds.skill_name ILIKE $1
+        GROUP BY du.user_id, du.first_name, du.last_name, du.postcode
+        ORDER BY session_count DESC;
+        `, [searchTerm]
+    )
+    return response.rows;
+  }
+
   static async getUserSkills(userId) {
     // Get teaching skills
     const teachingQuery = await db.query(
