@@ -120,13 +120,13 @@ CREATE TABLE appointments (
 -- Insert into users
 INSERT INTO dim_user (first_name, last_name, email, password, postcode, image_url) VALUES
 ('Alice', 'Johnson', 'alice@example.com', 'pass123', 'Birmingham City Centre', 'http://example.com/alice.jpg'),
-('Bob', 'Smith', 'bob@example.com', 'pass456', 'Moseley', 'http://example.com/bob.jpg'),
+('Bob', 'Smith', 'bob@example.com', '$2b$10$DfyzftRt.Ckwi/VKrt6Tk.buVjEK3ZlGEhdTXNNU06QI85epI9sh6', 'Moseley', 'http://example.com/bob.jpg'),
 ('Carol', 'White', 'carol@example.com', 'pass789', 'Harborne', 'http://example.com/carol.jpg'),
 ('David', 'Lee', 'david@example.com', 'pass321', 'Selly Oak', 'http://example.com/david.jpg'),
-('Eva', 'Green', 'eva@example.com', 'pass654', 'Erdington', 'http://example.com/eva.jpg'),
+('Eva', 'Green', 'eva@example.com', '$2b$10$DfyzftRt.Ckwi/VKrt6Tk.buVjEK3ZlGEhdTXNNU06QI85epI9sh6', 'Erdington', 'http://example.com/eva.jpg'),
 ('Frank', 'Moore', 'frank@example.com', 'pass987', 'Shoreditch (East London)', 'http://example.com/frank.jpg'),
 ('Grace', 'Kim', 'grace@example.com', 'pass147', 'Westminster (includes Buckingham Palace)', 'http://example.com/grace.jpg'),
-('Hank', 'Miller', 'hank@example.com', 'pass258', 'Camden Town', 'http://example.com/hank.jpg'),
+('Hank', 'Miller', 'hank@example.com', '$2b$10$DfyzftRt.Ckwi/VKrt6Tk.buVjEK3ZlGEhdTXNNU06QI85epI9sh6', 'Camden Town', 'http://example.com/hank.jpg'),
 ('Ivy', 'Brown', 'ivy@example.com', 'pass369', 'Notting Hill', 'http://example.com/ivy.jpg'),
 ('Jack', 'Wilson', 'jack@example.com', 'pass159', 'Waterloo / South Bank area', 'http://example.com/jack.jpg'),
 ('Amelia', 'Jones', 'amelia.jones@example.com', 'hashedpassword123', 'Manchester', 'https://example.com/images/amelia.jpg'),
@@ -138,17 +138,17 @@ INSERT INTO dim_user (first_name, last_name, email, password, postcode, image_ur
 -- Insert skills
 INSERT INTO dim_skill (skill_cat, skill_name, skill_desc) VALUES
 -- Music
-('Music', 'Guitar Playing', 'Ability to perform rhythm and lead guitar parts on acoustic or electric guitar.'),
-('Music', 'Piano Proficiency', 'Skilled in playing classical and contemporary pieces on the piano.'),
-('Music', 'Drumming Technique', 'Expertise in percussion and drumming using a standard drum kit.'),
-('Music', 'Violin Performance', 'Trained in playing solo and ensemble pieces with the violin.'),
-('Music', 'Saxophone Improvisation', 'Capable of performing jazz and blues improvisations on the saxophone.'),
+('Music', 'Guitar', 'Ability to perform rhythm and lead guitar parts on acoustic or electric guitar.'),
+('Music', 'Piano', 'Skilled in playing classical and contemporary pieces on the piano.'),
+('Music', 'Drumming', 'Expertise in percussion and drumming using a standard drum kit.'),
+('Music', 'Violin', 'Trained in playing solo and ensemble pieces with the violin.'),
+('Music', 'Saxophone', 'Capable of performing jazz and blues improvisations on the saxophone.'),
 -- Programming
-('Programming', 'Proficient JavaScript', 'Building web applications.'),
-('Programming', 'Experienced Python', 'Data analysis and scripting.'),
+('Programming', 'JavaScript', 'Building web applications.'),
+('Programming', 'Python', 'Data analysis and scripting.'),
 ('Programming', 'Java', 'Developing enterprise-level software.'),
-('Programming', 'Capable C++', 'Building efficient system-level code.'),
-('Programming', 'Knowledgeable Haskell', 'Functional programming.'),
+('Programming', 'C++', 'Building efficient system-level code.'),
+('Programming', 'Haskell', 'Functional programming.'),
 -- Cooking
 ('Cooking', 'Baking Techniques', 'Skilled in preparing breads, pastries, and cakes using precise baking methods.'),
 ('Cooking', 'Knife Skills', 'Proficient in professional knife handling, including slicing, dicing, and julienning.'),
@@ -322,7 +322,8 @@ INSERT INTO facts_session (learner_id, teacher_id, skill_id, start_time_id, end_
 (4, 6, 10, 33, 34),
 (4, 7, 2, 35, 36),
 (5, 7, 2, 33, 34),
-(5, 10, 1, 53, 54),
+(5, 7, 2, 33, 34),
+(5, 10, 2, 53, 54),
 (5, 9, 10, 37, 38),
 (6, 3, 7, 49, 50),
 (6, 1, 3, 47, 48),

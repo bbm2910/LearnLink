@@ -25,15 +25,19 @@ def generate_current_skills_visualisation():
         return jsonify({'error': 'Invalid data received'}), 400
 
     # Generate bar chart using matplotlib (static image)
-    plt.figure(figsize=(12, 6))
+    plt.figure(figsize=(20, 15))
     sns.set_style("white")
     sns.barplot(y=skills, x=sessions, palette='Blues_d')
-    # plt.title("Skills You're Currently Learning")
+    plt.title("Skills You've Learned So Far...", fontsize=40)
     plt.xlabel("Number of Sessions")
     plt.ylabel("Skill")
-    plt.xticks(fontsize=22)
-    plt.yticks(fontsize=22)
-    
+
+    # Increase label font sizes
+    plt.xlabel("Number of Sessions", fontsize=36)
+    plt.ylabel("Skill", fontsize=36)
+    plt.xticks(fontsize=36)
+    plt.yticks(fontsize=36)
+
     plt.tight_layout()
     plt.show()
 
