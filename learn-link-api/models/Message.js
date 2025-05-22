@@ -35,18 +35,31 @@ class Message {
        
     }
 
-    static async getConversationPartners(userId){
-        const response = await db.query(
-            `SELECT DISTINCT
-            CASE
-            WHEN sender_id = $1 THEN recipient_id
-            WHEN recipient_id = $1 THEN sender_id
-            END AS partner_id 
-            FROM messages
-            WHERE sender_id = $1 OR recipient_id = $1;
-             `, [userId])
-        return response.rows.map(row => row.partner_id)
-    }
+   static async getConversationPartners(userId) {
+    const response = await db.query(
+        `
+        SELECT
+            u.user_id,
+            u.email,
+            MAX(m.sent_at) AS last_message_time
+        FROM (
+            SELECT recipient_id AS user_id FROM messages WHERE sender_id = $1
+            UNION
+            SELECT sender_id AS user_id FROM messages WHERE recipient_id = $1
+        ) AS conversation_users
+        JOIN dim_user u ON u.user_id = conversation_users.user_id
+        JOIN messages m ON (
+            (m.sender_id = $1 AND m.recipient_id = u.user_id) OR
+            (m.sender_id = u.user_id AND m.recipient_id = $1)
+        )
+        GROUP BY u.user_id, u.email
+        ORDER BY last_message_time DESC;
+        `,
+        [userId]
+    );
+    
+    return response.rows;
+}
 }
 
 

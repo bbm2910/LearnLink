@@ -1,0 +1,31 @@
+version: '3.9'
+services:
+  learnlink-api:
+    image: khavan123/learnlink-api-cloud:0.0.1.RELEASE
+    ports:
+      - '3000:3000'
+    restart: always
+    depends_on:
+      - learnlink-db
+      - learnlink-python
+    networks:
+      - learnlink-network
+
+  learnlink-db:
+    image: khavan123/learnlink-db-cloud:0.0.1.RELEASE
+    ports:
+      - '5432:5432'
+    restart: always
+    networks:
+      - learnlink-network
+  
+  learnlink-python:
+    image: khavan123/learnlink-python-cloud:0.0.1.RELEASE
+    ports:
+      - '3005:3005'
+    restart: always
+    networks:
+      - learnlink-network
+
+networks:
+  learnlink-network: 

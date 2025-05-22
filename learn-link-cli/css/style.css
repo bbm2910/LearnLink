@@ -83,6 +83,9 @@ main p {
   text-align: center;
   font-size: 1.3rem;
 }
+.main-img {
+  width: 50%;
+}
 .site-footer {
   width: 100%;
   text-align: center;
