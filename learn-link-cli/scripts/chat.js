@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
         messageInput.value = "";
     });
 
-    socket.on("private_message", (data) => {
+    socket.on("private_message", (data) => { //socket.on is used to listen for events
         
         const div = document.createElement("div");
         const isSender = String(data.senderId) === String(currentUserId);
@@ -76,9 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
         messageContainer.appendChild(div);
         messageContainer.scrollTop = messageContainer.scrollHeight;
 
-        socket.emit("get_conversations"); //Refresh inbox
+        socket.emit("get_conversations"); //socket.emit sends an event
     })
-
+    
     //Get chat history 
     recipientEmailInput.addEventListener("change", () => {
         const email = recipientEmailInput.value.trim();
