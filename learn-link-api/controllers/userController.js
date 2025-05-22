@@ -151,22 +151,22 @@ async function getUserByEmail(req, res) {
   }
 }
 
-// async function getLastSessionSummary(req, res) {
-//   try {
-//     // const userId = req.user.user_id;
-//     // const lastSessionSummary = await User.getLastSession();
-//     const today = new Date();
-//     const options = { day: "numeric", month: "long", year: "numeric" };
-//     const formattedDate = today.toLocaleDateString("en-GB", options);
-//     res.status(200).json({
-//       skill: "Javascript",
-//       date: formattedDate,
-//     });
-//   } catch (err) {
-//     console.error("Error fetching last session summary:", err);
-//     res.status(500).json({ error: "Failed to last session summary." });
-//   }
-// }
+async function getLastSessionSummary(req, res) {
+  try {
+    // const userId = req.user.user_id;
+    // const lastSessionSummary = await User.getLastSession();
+    const today = new Date();
+    const options = { day: "numeric", month: "long", year: "numeric" };
+    const formattedDate = today.toLocaleDateString("en-GB", options);
+    res.status(200).json({
+      skill: "Javascript",
+      date: formattedDate,
+    });
+  } catch (err) {
+    console.error("Error fetching last session summary:", err);
+    res.status(500).json({ error: "Failed to last session summary." });
+  }
+}
 
 module.exports = {
   register,
@@ -175,4 +175,5 @@ module.exports = {
   getTopUsers,
   getUserById,
   getUserByEmail,
+  getLastSessionSummary,
 };
